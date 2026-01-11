@@ -261,14 +261,43 @@
 
         <div class="card">
             <div class="card-header">
-                <h2>💡 Next Steps</h2>
+                <h2>💡 What's Next?</h2>
+                <p>Actions you can take based on these metrics</p>
             </div>
-            <ul style="margin-left: 1.5rem; line-height: 2;">
-                <li>Review <code>dashboards/kpi_dashboard.ipynb</code> for detailed visualizations</li>
-                <li>Run QA tests: <code>python qa/run_qa.py</code></li>
-                <li>Analyze trends: <code>python analytics/load_data.py</code></li>
-                <li>Read business review: <code>reviews/weekly_business_review.md</code></li>
-            </ul>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div class="metric-card success">
+                    <div class="metric-label">Test the Agent</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">
+                        Upload sample lead data and see AI-generated analysis
+                    </p>
+                    <a href="/upload" class="btn btn-primary" style="margin-top: 0.75rem; display: inline-block;">Try
+                        Agent →</a>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-label">Review Documentation</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">
+                        Business intent, KPIs, rollout plan, and enablement guides
+                    </p>
+                    <a href="/" class="btn btn-primary" style="margin-top: 0.75rem; display: inline-block;">View Docs
+                        →</a>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-label">Investigate Low Performers</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">
+                        Focus on task types or lead sources with &lt;85% accuracy
+                    </p>
+                </div>
+
+                <div class="metric-card success">
+                    <div class="metric-label">Share with Stakeholders</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">
+                        Use these metrics for your Weekly Business Review
+                    </p>
+                </div>
+            </div>
         </div>
 
         {% endif %}
