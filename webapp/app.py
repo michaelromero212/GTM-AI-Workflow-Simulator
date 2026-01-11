@@ -220,7 +220,7 @@ async def upload_file(
 
 @app.get("/explorer", response_class=HTMLResponse)
 async def explorer_page(request: Request):
-    """SQL Explorer page"""
+    """Operational Diagnostics page - allows PMs to audit agent performance and logs"""
     return templates.TemplateResponse("explorer.html", {"request": request})
 
 

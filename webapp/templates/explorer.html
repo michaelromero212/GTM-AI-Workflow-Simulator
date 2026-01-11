@@ -1,34 +1,39 @@
 {% extends "layout.html" %}
 
-{% block title %}SQL Explorer - GTM Ops{% endblock %}
-{% block page_title %}SQL Explorer{% endblock %}
-{% block page_subtitle %}Query agent run data directly{% endblock %}
+{% block title %}Diagnostics - GTM Ops{% endblock %}
+{% block page_title %}Operational Diagnostics{% endblock %}
+{% block page_subtitle %}Audit agent performance, verify compliance, and identify bottlenecks{% endblock %}
 
 {% set active_page = 'explorer' %}
 
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <h2>🔍 Interactive SQL Console</h2>
-        <p>Run queries against the agent_runs table</p>
+        <h2>🔬 Diagnostic Report Builder</h2>
+        <p>Select a standard diagnostic report to audit current operations</p>
     </div>
     <div class="card-body">
-        <div class="query-presets">
-            <button class="btn btn-outline btn-sm" onclick="setQuery('summary')">📊 Summary Stats</button>
-            <button class="btn btn-outline btn-sm" onclick="setQuery('by_source')">📈 By Lead Source</button>
-            <button class="btn btn-outline btn-sm" onclick="setQuery('errors')">⚠️ Error Analysis</button>
-            <button class="btn btn-outline btn-sm" onclick="setQuery('ab_test')">🧪 A/B Comparison</button>
-            <button class="btn btn-outline btn-sm" onclick="setQuery('recent')">🕐 Recent Runs</button>
+        <div class="query-presets" style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <button class="btn btn-outline btn-sm" onclick="setQuery('summary')">📊 Executive Summary</button>
+            <button class="btn btn-outline btn-sm" onclick="setQuery('by_source')">📉 Bottleneck Analysis</button>
+            <button class="btn btn-outline btn-sm" onclick="setQuery('errors')">⚠️ Failure Audit</button>
+            <button class="btn btn-outline btn-sm" onclick="setQuery('ab_test')">🧪 Experiment Outcomes</button>
+            <button class="btn btn-outline btn-sm" onclick="setQuery('recent')">🔎 Compliance Audit</button>
         </div>
 
         <form method="POST" action="/explorer">
-            <div class="form-group">
-                <label class="form-label">SQL Query</label>
-                <textarea name="query" id="sqlQuery" class="sql-editor"
-                    placeholder="SELECT * FROM agent_runs LIMIT 10">{{ query if query else 'SELECT * FROM agent_runs LIMIT 10' }}</textarea>
-            </div>
+            <details style="margin-bottom: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.5rem;">
+                <summary style="cursor: pointer; font-weight: 500; color: #64748b; font-size: 0.875rem;">
+                    ⚙️ Advanced: SQL Query Logic
+                </summary>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <textarea name="query" id="sqlQuery" class="sql-editor" rows="6"
+                        placeholder="SELECT * FROM agent_runs LIMIT 10">{{ query if query else 'SELECT * FROM agent_runs LIMIT 10' }}</textarea>
+                </div>
+            </details>
+
             <button type="submit" class="btn btn-accent">
-                ▶️ Run Query
+                🛠️ Generate Diagnostic Report
             </button>
         </form>
     </div>
@@ -71,8 +76,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>📖 Schema Reference</h2>
-        <p>Available columns in agent_runs</p>
+        <h2>📑 Data Catalog & Observability Fields</h2>
+        <p>Managed fields in the agent_runs interaction dataset</p>
     </div>
     <div class="card-body" style="padding: 0;">
         <table>
