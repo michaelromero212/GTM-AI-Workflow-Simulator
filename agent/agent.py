@@ -22,7 +22,7 @@ class GTMAgent:
     Supports lead summary, follow-up suggestions, risk analysis, and data hygiene tasks
     """
     
-    def __init__(self, hf_token: Optional[str] = None, model: str = "mistralai/Mistral-7B-Instruct-v0.2"):
+    def __init__(self, hf_token: Optional[str] = None, model: str = "meta-llama/Llama-3.2-3B-Instruct"):
         """
         Initialize the agent
         
@@ -32,7 +32,8 @@ class GTMAgent:
         """
         self.hf_token = hf_token or os.getenv("HF_TOKEN")
         self.model = model
-        self.api_url = f"https://api-inference.huggingface.co/models/{model}"
+        # Use the new Hugging Face router endpoint (api-inference.huggingface.co is deprecated)
+        self.api_url = f"https://router.huggingface.co/hf-inference/models/{model}"
         self.headers = {"Authorization": f"Bearer {self.hf_token}"} if self.hf_token else None
         
     def _should_escalate(self, query: str) -> Optional[Dict[str, str]]:
@@ -62,7 +63,7 @@ class GTMAgent:
     
     def _call_hf_api(self, prompt: str, max_tokens: int = 500) -> Optional[str]:
         """
-        Call Hugging Face Inference API
+        Call Hugging Face Inference API using OpenAI-compatible chat completions format
         
         Args:
             prompt: Full prompt to send
@@ -74,42 +75,50 @@ class GTMAgent:
         if not self.hf_token:
             return None
         
+        # Use the new OpenAI-compatible chat completions endpoint
+        api_url = "https://router.huggingface.co/v1/chat/completions"
+        
+        # Parse the prompt to extract system and user messages
+        # The prompt format is: <s>[INST] {system}\n\n{user} [/INST]
         payload = {
-            "inputs": prompt,
-            "parameters": {
-                "max_new_tokens": max_tokens,
-                "temperature": 0.7,
-                "top_p": 0.9,
-                "return_full_text": False
-            }
+            "model": self.model,
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "max_tokens": max_tokens,
+            "temperature": 0.7,
+            "top_p": 0.9
         }
         
         try:
             response = requests.post(
-                self.api_url,
+                api_url,
                 headers=self.headers,
                 json=payload,
-                timeout=30
+                timeout=60
             )
             
             if response.status_code == 200:
                 result = response.json()
-                if isinstance(result, list) and len(result) > 0:
-                    return result[0].get("generated_text", "").strip()
+                # OpenAI format returns choices[0].message.content
+                if "choices" in result and len(result["choices"]) > 0:
+                    return result["choices"][0].get("message", {}).get("content", "").strip()
                 return None
             elif response.status_code == 503:
                 # Model loading, wait and retry once
-                time.sleep(5)
+                time.sleep(10)
                 response = requests.post(
-                    self.api_url,
+                    api_url,
                     headers=self.headers,
                     json=payload,
-                    timeout=30
+                    timeout=60
                 )
                 if response.status_code == 200:
                     result = response.json()
-                    if isinstance(result, list) and len(result) > 0:
-                        return result[0].get("generated_text", "").strip()
+                    if "choices" in result and len(result["choices"]) > 0:
+                        return result["choices"][0].get("message", {}).get("content", "").strip()
+            else:
+                print(f"Hugging Face API error: {response.status_code} - {response.text[:200]}")
             
             return None
             

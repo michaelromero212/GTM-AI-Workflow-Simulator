@@ -8,13 +8,13 @@ Context:
 - Downloaded lakehouse architecture whitepaper last week
 - Company size: 200 employees, Series B startup
 - Current stack: Snowflake, dbt, Fivetran
-- Pain points mentioned: High costs (~$50k/month), slow ELT pipelines, limited ML capabilities
+- Pain points mentioned: High infrastructure spend (~$50k/month), slow ELT pipelines, limited ML capabilities
 - Competitor: Currently evaluating Snowflake + Dataiku
 - Budget cycle: Q2 planning starts in March
 
 Recent Activity:
 - Attended 45-minute webinar, stayed for full Q&A
 - Asked questions about Delta Lake performance vs Iceberg
-- Requested pricing information for Enterprise tier
+- Requested information about Enterprise tier capabilities
 
 Next Steps: Discovery call scheduled for January 15th
