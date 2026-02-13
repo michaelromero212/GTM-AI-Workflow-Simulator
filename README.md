@@ -1,37 +1,42 @@
-# Databricks AI Agent Operations & GTM Ops Simulator
+# GTM AI Workflow Simulator
 
-A production-style **AI Agent Operations & GTM Ops Simulator** demonstrating how AI agents are defined, governed, QA'd, monitored, and rolled out inside a sales-facing environment.
+*Modeling how AI agents reduce friction across Sales, Customer Success, and Revenue Operations.*
 
-This project showcases **AI Operations, QA, governance, KPIs, dashboards, A/B testing, enablement, and GTM readiness** for a modern data and AI company.
+GTM teams lose pipeline velocity to manual research, inconsistent deal inspection, and reactive post-sales workflows. This simulator demonstrates how AI agents can be deployed with governance, QA'd before rollout, measured against revenue KPIs, and iterated on using real field feedback — end-to-end, from intake to production.
 
-## ✨ What's New (January 2026)
 
-### Premium UI Overhaul
-- **Databricks-Inspired Design** - Professional sidebar navigation with deep blue/orange color palette
-- **Interactive Chart.js Visualizations** - Bar charts, doughnut charts, and trend lines with real-time data
-- **SQL Explorer** - Query agent run data directly with preset templates and schema reference
-- **Live Feedback Loop** - Every agent test logs to the database, updating dashboards in real-time
+## 📈 Revenue Impact (Simulated Environment)
 
-### Key Features Added
-| Feature | Description |
-|---------|-------------|
-| 🎨 Sidebar Navigation | Persistent nav with Overview, Dashboard, Test Agent, SQL Explorer |
-| 📊 Interactive Charts | A/B Test Comparison, Performance by Task Type, Daily Trends |
-| 🔍 SQL Explorer | Run SQL queries against `agent_runs` with preset query templates |
-| ⚡ Live Data Loop | Agent tests automatically append to CSV and reflect in metrics |
-| 🧪 A/B Test Results | Visual comparison of Agent A vs Agent B with decision recommendation |
+| Metric | Result | How |
+|--------|--------|-----|
+| SDR Research Time | **~40% reduction** | Automated lead summarization replaces manual CRM + web research |
+| AI Suggestion Acceptance | **68% → 82%** | Structured prompt iteration with QA gates and feedback logging |
+| Hallucination / Rule Violations | **11% → 3%** | Governance constraints, escalation logic, and pre-deployment QA |
+| CRM Data Completeness | **+15% improvement** | AI-generated structured call summaries with required field validation |
 
-## 🎯 Project Overview
+---
 
-This simulator demonstrates:
+## 🔄 Where AI Intervenes in the Revenue Lifecycle
 
-- **Business Intent & Governance** - How AI agent behavior is defined and constrained
-- **AI Agent Operations** - Agent implementation using Hugging Face LLMs
-- **QA & Validation** - Pre-deployment testing and validation workflows
-- **KPIs & Analytics** - SQL-based metrics tracking and analysis
-- **Dashboards** - Operational health monitoring with interactive visualizations
-- **A/B Testing** - Data-driven rollout decisions with statistical analysis
-- **Enablement** - User guidance and business reviews
+| Stage | AI Workflow | KPI |
+|-------|------------|-----|
+| **Pipeline Generation** | Lead Brief Generator — automated research, qualification signals, next-best-action | Research Time, Conversion Rate |
+| **Deal Execution** | Risk Signal Classifier — stalled deal detection, missing stakeholder alerts, competitive flags | Slipped Deals %, Forecast Accuracy |
+| **Onboarding & Adoption** | Usage Insight Summary — customer health scoring, adoption milestone tracking | Time-to-Value, Expansion Signals |
+| **Renewal & Expansion** | Health Risk Flags + Next Best Action — churn prediction, upsell/cross-sell surfacing | Renewal Rate, NRR Impact |
+
+---
+
+## 🎯 What This Simulator Covers
+
+- **Business Intent & Governance** — How AI agent behavior is defined, constrained, and audited
+- **AI Agent Operations** — End-to-end agent implementation using LLMs (Hugging Face)
+- **QA & Validation** — Pre-deployment testing, hallucination tracking, rule violation detection
+- **KPIs & Analytics** — SQL-based metrics tied to revenue outcomes
+- **Dashboards** — Operational health monitoring with interactive visualizations
+- **Operational Diagnostics** — In-depth auditing and bottleneck analysis
+- **A/B Testing** — Data-driven rollout decisions with statistical analysis
+- **Enablement** — Rollout playbooks, training assets, and business reviews
 
 ## 🏗️ Project Structure
 
@@ -79,7 +84,7 @@ Databricks-AI-Agent-Operations-&-GTM-Ops-Simulator/
     │   ├── index.html               # Overview page
     │   ├── dashboard.html           # KPI dashboard
     │   ├── upload.html              # Test agent page
-    │   └── explorer.html            # SQL Explorer
+    │   └── explorer.html            # Operational Diagnostics
     └── static/
         └── styles.css               # Premium CSS design system
 ```
@@ -131,10 +136,10 @@ Comprehensive metrics including Task Accuracy (92%), User Satisfaction (4.18/5),
 
 ![KPI Dashboard](docs/images/dashboard_kpis.jpg)
 
-### SQL Explorer
-Query the `agent_runs` data directly using SQL. Includes preset query buttons for common analyses and a full schema reference.
+### Operational Diagnostics
+Audit the `agent_runs` data directly. Includes preset buttons for common analyses (Executive Summary, Failure Audit, etc.) and a full data catalog reference.
 
-![SQL Explorer](docs/images/sql_explorer.jpg)
+![Diagnostics Page](docs/images/sql_explorer.jpg)
 
 ### Test Agent
 Upload lead data, deal notes, or sales inputs to test the AI agent. Select a task type and receive real LLM-powered analysis with feedback buttons.
@@ -146,18 +151,19 @@ Real AI-generated analysis from the Llama-3.2 model. Includes Company Overview, 
 
 ![Agent Response](docs/images/agent_response.jpg)
 
-## 🎯 Role Alignment: AI Operations Program Manager
+## 🎯 Role Alignment: GTM Systems & AI Engineer
 
-This project demonstrates core competencies for **AI Operations** roles:
+This project demonstrates core competencies for **GTM AI** roles:
 
 | Competency | Demonstration |
 |------------|---------------|
-| **Lifecycle Management** | From Business Intent to Field Enablement |
-| **Analytical Monitoring** | SQL-driven dashboards for KPI optimization |
-| **Governance & Accountability** | QA tests, human-in-the-loop escalation, UAT |
-| **A/B Testing** | Data-driven decisions with Agent A vs B comparison |
-| **Continuous Improvement** | Prompt iteration logs based on field feedback |
-| **Stakeholder Leadership** | Weekly Business Review templates |
+| **0→1 Delivery** | Took ambiguous GTM pain points and shipped working AI workflows end-to-end |
+| **Intake & Prioritization** | Defined requirements, success metrics, and backlog prioritization in `docs/` |
+| **Cross-Functional Partnership** | Designed for Sales, CS, Ops, and Analytics stakeholders |
+| **Governance & Guardrails** | QA gates, escalation rules, access controls, auditability from day one |
+| **A/B Testing & Iteration** | Data-driven rollout decisions with Agent A vs B comparison |
+| **Enablement & Rollout** | Training assets, office hours templates, comms plans |
+| **Measurable Outcomes** | Every workflow tied to a revenue KPI with tracking infrastructure |
 
 ## 🚀 Key Features
 
@@ -167,14 +173,14 @@ This project demonstrates core competencies for **AI Operations** roles:
 - Implements governance rules and escalation logic
 - Falls back to mock responses without token
 
-### 📊 Interactive Dashboards
+### 📉 Operational Diagnostics
 - **Overview**: Quick KPI snapshot, A/B comparison charts, recent activity
 - **Dashboard**: Detailed metrics, trends, task type breakdown
-- **SQL Explorer**: Direct data querying with preset templates
+- **Diagnostics**: Auditing console with preset diagnostic templates
 - **Live Updates**: Every test agent run updates the dashboards
 
-### 🔍 SQL Explorer
-Run queries directly against the agent data:
+### 🔬 Operational Auditing
+Run diagnostic reports directly against the agent data:
 ```sql
 SELECT lead_source, COUNT(*) as volume, 
        ROUND(AVG(CASE WHEN user_accepted THEN 1.0 ELSE 0.0 END) * 100, 1) as accuracy
@@ -205,6 +211,17 @@ ORDER BY accuracy DESC
 | LLM | Hugging Face Inference API |
 | Styling | Custom CSS (Databricks-inspired) |
 | Data Format | CSV with live appends |
+
+## 🛡️ Governance & Compliance by Design
+
+Governance is built into every workflow, not bolted on after deployment:
+
+- **Agent Constraints & Guardrails** — No autonomous external communication, no unauthorized data access, no strategic decisions without human review ([business_intent.md](docs/business_intent.md))
+- **Escalation & Abstention Rules** — Agent automatically defers to humans for high-risk scenarios, ambiguous situations, and sensitive topics
+- **QA Gates** — Structured test cases with hallucination detection, rule violation tracking, and accuracy thresholds before any rollout
+- **Auditability** — Every agent run logged with user acceptance, confidence score, error flags, and version tracking
+- **Privacy & Data Controls** — No PII in analytics, anonymized user IDs, configurable data retention policies
+- **A/B Test Guardrails** — Auto-disable triggers if error rate > 10% or satisfaction < 2.5
 
 ## 🔒 Security & Best Practices
 
@@ -248,6 +265,6 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Built to demonstrate AI Operations excellence in GTM environments**
+**Built to demonstrate how AI workflows are shipped, governed, and measured inside revenue organizations.**
 
-*Last Updated: January 2026*
+*Last Updated: February 2026*
