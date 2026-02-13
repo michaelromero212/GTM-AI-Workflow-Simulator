@@ -95,8 +95,8 @@ Databricks-AI-Agent-Operations-&-GTM-Ops-Simulator/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/Databricks-AI-Agent-Operations-GTM-Ops-Simulator.git
-cd Databricks-AI-Agent-Operations-GTM-Ops-Simulator
+git clone https://github.com/michaelromero212/ai-ops-gtm-simulator.git
+cd ai-ops-gtm-simulator
 
 # Create virtual environment
 python3 -m venv venv
