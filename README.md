@@ -149,7 +149,6 @@ Design and compare manual vs AI-assisted GTM workflows. Visualizes step-by-step 
 Full audit trail of every agent run with governance metrics, compliance tracking, and detailed event logging.
 
 ![Audit Log — Metrics & Trail](docs/images/audit_log.png)
-![Audit Log — Event Table](docs/images/audit_log_table.png)
 
 ### Agent Lab
 Interactive sandbox for testing AI agents against different GTM task types (lead summaries, deal risk, follow-ups). Submit real prompts and evaluate LLM-generated outputs with feedback controls.
