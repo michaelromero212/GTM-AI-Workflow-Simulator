@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AI Agent Operations{% endblock %}</title>
+    <meta name="description"
+        content="GTM AI Workflow Simulator — AI-powered sales intelligence and operations platform">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,8 +16,11 @@
 </head>
 
 <body class="app-layout">
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <span class="brand-icon">🤖</span>
             <span class="brand-text">GTM Ops</span>
@@ -30,9 +35,17 @@
                 <span class="nav-icon">📈</span>
                 <span class="nav-label">Dashboard</span>
             </a>
+            <a href="/workflow" class="nav-item {% if active_page == 'workflow' %}active{% endif %}">
+                <span class="nav-icon">🔄</span>
+                <span class="nav-label">Workflows</span>
+            </a>
             <a href="/upload" class="nav-item {% if active_page == 'upload' %}active{% endif %}">
                 <span class="nav-icon">🧪</span>
-                <span class="nav-label">Test Agent</span>
+                <span class="nav-label">Agent Lab</span>
+            </a>
+            <a href="/audit" class="nav-item {% if active_page == 'audit' %}active{% endif %}">
+                <span class="nav-icon">🛡️</span>
+                <span class="nav-label">Audit Log</span>
             </a>
             <a href="/explorer" class="nav-item {% if active_page == 'explorer' %}active{% endif %}">
                 <span class="nav-icon">🛠️</span>
@@ -45,12 +58,18 @@
                 <span class="status-dot active"></span>
                 <span class="status-text">Agent Online</span>
             </div>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+                <span id="darkModeIcon">🌙</span>
+            </button>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
         <header class="top-bar">
+            <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
             <div class="page-title">
                 <h1>{% block page_title %}AI Agent Operations{% endblock %}</h1>
                 <p class="page-subtitle">{% block page_subtitle %}GTM Sales Intelligence Platform{% endblock %}</p>
@@ -64,6 +83,90 @@
             {% block content %}{% endblock %}
         </div>
     </main>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script>
+        // Dark mode toggle with localStorage persistence
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+            document.getElementById('darkModeIcon').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // Apply dark mode on load
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('darkModeIcon').textContent = '☀️';
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'success', duration = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            toast.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-message">${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('toast-show'));
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // Animated counter
+        function animateCounter(element, target, duration = 1200, suffix = '', decimals = 0) {
+            let start = 0;
+            const startTime = performance.now();
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+                const current = start + (target - start) * eased;
+                element.textContent = current.toFixed(decimals) + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Auto-animate all counter elements on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-counter]').forEach(el => {
+                const target = parseFloat(el.dataset.counter);
+                const suffix = el.dataset.suffix || '';
+                const decimals = parseInt(el.dataset.decimals || '0');
+                animateCounter(el, target, 1200, suffix, decimals);
+            });
+        });
+
+        // Sidebar toggle for mobile/tablet
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+            document.body.classList.toggle('sidebar-open');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+            document.body.classList.remove('sidebar-open');
+        }
+
+        // Close sidebar on nav item click (mobile)
+        document.querySelectorAll('.sidebar .nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) closeSidebar();
+            });
+        });
+
+        // Close sidebar on window resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) closeSidebar();
+        });
+    </script>
 
     {% block scripts %}{% endblock %}
 </body>

@@ -1,0 +1,199 @@
+{% extends "layout.html" %}
+
+{% block title %}Audit Log - GTM Ops{% endblock %}
+{% block page_title %}Governance & Audit Log{% endblock %}
+{% block page_subtitle %}Track every agent action for compliance and operational rigor{% endblock %}
+
+{% set active_page = 'audit' %}
+
+{% block content %}
+<!-- Governance Summary -->
+<div class="card">
+    <div class="card-header">
+        <h2>🛡️ Governance Summary</h2>
+        <p>Overall compliance and quality metrics</p>
+    </div>
+    <div class="card-body">
+        <div class="metrics-grid">
+            {% if summary %}
+            <div class="metric-card success">
+                <div class="metric-label">Audit Coverage</div>
+                <div class="metric-value"><span data-counter="{{ summary.total_runs|int }}" data-suffix=""
+                        data-decimals="0">0</span></div>
+                <div class="metric-change">Every run logged & tracked</div>
+            </div>
+            <div class="metric-card {% if summary.error_rate <= 5 %}success{% else %}danger{% endif %}">
+                <div class="metric-label">Error Rate</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.error_rate) }}" data-suffix="%"
+                        data-decimals="1">0</span></div>
+                <div class="metric-change">Target: ≤5%</div>
+            </div>
+            <div class="metric-card {% if summary.abstention_rate >= 3 %}success{% else %}warning{% endif %}">
+                <div class="metric-label">Escalation Rate</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.abstention_rate) }}"
+                        data-suffix="%" data-decimals="1">0</span></div>
+                <div class="metric-change">Agent appropriately defers</div>
+            </div>
+            <div class="metric-card accent">
+                <div class="metric-label">Prompt Versions</div>
+                <div class="metric-value">{{ prompt_versions|length if prompt_versions else 4 }}</div>
+                <div class="metric-change">Version-controlled prompts</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Prompt Version Performance -->
+{% if prompt_versions %}
+<div class="card">
+    <div class="card-header">
+        <h2>🔖 Prompt Version Performance</h2>
+        <p>Track quality improvements across prompt iterations</p>
+    </div>
+    <div class="card-body" style="padding:0;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Runs</th>
+                    <th>Accuracy</th>
+                    <th>Satisfaction</th>
+                    <th>Avg Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pv in prompt_versions %}
+                <tr>
+                    <td><code>{{ pv.prompt_version }}</code></td>
+                    <td>{{ pv.total_runs }}</td>
+                    <td>
+                        <span
+                            class="badge {% if pv.accuracy_pct >= 85 %}badge-success{% elif pv.accuracy_pct >= 75 %}badge-warning{% else %}badge-danger{% endif %}">
+                            {{ "%.1f"|format(pv.accuracy_pct) }}%
+                        </span>
+                    </td>
+                    <td>{{ "%.2f"|format(pv.avg_satisfaction) }}</td>
+                    <td>{{ "%.2f"|format(pv.avg_resolution_time) }}s</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Filter Bar -->
+<div class="card">
+    <div class="card-header">
+        <h2>📋 Agent Run Audit Trail</h2>
+        <p>Every agent interaction logged with full traceability</p>
+    </div>
+    <div class="card-body">
+        <form method="GET" action="/audit" class="audit-filters">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="form-label">Task Type</label>
+                    <select name="task_type" class="form-control">
+                        <option value="">All Types</option>
+                        <option value="lead_summary" {% if filters and filters.task_type=='lead_summary' %}selected{%
+                            endif %}>Lead Summary</option>
+                        <option value="follow_up" {% if filters and filters.task_type=='follow_up' %}selected{% endif
+                            %}>Follow-up</option>
+                        <option value="risk_analysis" {% if filters and filters.task_type=='risk_analysis' %}selected{%
+                            endif %}>Risk Analysis</option>
+                        <option value="data_hygiene" {% if filters and filters.task_type=='data_hygiene' %}selected{%
+                            endif %}>Data Hygiene</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="form-label">Agent Version</label>
+                    <select name="version" class="form-control">
+                        <option value="">All Versions</option>
+                        <option value="A" {% if filters and filters.version=='A' %}selected{% endif %}>Agent A</option>
+                        <option value="B" {% if filters and filters.version=='B' %}selected{% endif %}>Agent B</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="form-label">Outcome</label>
+                    <select name="outcome" class="form-control">
+                        <option value="">All Outcomes</option>
+                        <option value="accepted" {% if filters and filters.outcome=='accepted' %}selected{% endif %}>✅
+                            Accepted</option>
+                        <option value="rejected" {% if filters and filters.outcome=='rejected' %}selected{% endif %}>❌
+                            Rejected</option>
+                        <option value="escalated" {% if filters and filters.outcome=='escalated' %}selected{% endif %}>
+                            ⚠️ Escalated</option>
+                        <option value="error" {% if filters and filters.outcome=='error' %}selected{% endif %}>🔴 Error
+                        </option>
+                    </select>
+                </div>
+                <div class="filter-group" style="align-self:flex-end;">
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Audit Log Table -->
+{% if audit_log %}
+<div class="card">
+    <div class="card-body results-table" style="padding:0; overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Run ID</th>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Task</th>
+                    <th>Version</th>
+                    <th>Outcome</th>
+                    <th>Rating</th>
+                    <th>Time</th>
+                    <th>Escalated</th>
+                    <th>Error</th>
+                    <th>Stage</th>
+                    <th>Saved</th>
+                    <th>Prompt</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in audit_log %}
+                <tr class="{% if row.error_occurred %}row-error{% elif row.abstained %}row-escalated{% endif %}">
+                    <td><code>{{ row.run_id }}</code></td>
+                    <td style="white-space:nowrap;">{{ row.timestamp }}</td>
+                    <td>{{ row.user_id }}</td>
+                    <td><code>{{ row.task_type }}</code></td>
+                    <td><span
+                            class="badge {% if row.agent_version == 'A' %}badge-success{% else %}badge-warning{% endif %}">{{
+                            row.agent_version }}</span></td>
+                    <td>
+                        <span
+                            class="badge {% if row.outcome == 'Accepted' %}badge-success{% else %}badge-danger{% endif %}">
+                            {{ row.outcome }}
+                        </span>
+                    </td>
+                    <td>{{ row.user_rating }}/5</td>
+                    <td>{{ row.resolution_time }}s</td>
+                    <td>{% if row.abstained %}<span class="badge badge-warning">Yes</span>{% else %}—{% endif %}</td>
+                    <td>{% if row.error_occurred %}<span class="badge badge-danger">Yes</span>{% else %}—{% endif %}
+                    </td>
+                    <td>{{ row.workflow_stage }}</td>
+                    <td>{{ row.time_saved_minutes }} min</td>
+                    <td><code>{{ row.prompt_version }}</code></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Export Note -->
+<div class="decision-box" style="margin-top:1rem;">
+    🔒 <strong>Compliance Note:</strong> All agent interactions are automatically logged with full auditability —
+    user ID, prompt version, acceptance/rejection, escalation decisions, and timing data.
+    No PII stored in analytics. Data retention configurable per governance policy.
+</div>
+{% endblock %}

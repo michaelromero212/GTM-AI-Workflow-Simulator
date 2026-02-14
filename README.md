@@ -126,30 +126,40 @@ Open your browser to: **http://localhost:8000**
 
 ## 📸 Screenshots
 
-### Performance Overview (Home Page)
-The landing page shows real-time KPIs, A/B test comparisons, lead source performance, and recent activity—all with interactive Chart.js visualizations.
+### Performance Overview
+The landing page shows real-time KPIs, A/B test summaries, lead source performance, and recent activity — all with interactive Chart.js visualizations.
 
-![Home Page](docs/images/home_page.jpg)
+![Overview — KPIs & A/B Summary](docs/images/overview_top.png)
+![Overview — Tables & Charts](docs/images/overview_bottom.png)
 
 ### KPI Dashboard
-Comprehensive metrics including Task Accuracy (92%), User Satisfaction (4.18/5), Resolution Time, and Error Rate. Interactive bar charts compare Agent A vs Agent B performance.
+Comprehensive metrics including task accuracy, satisfaction ratings, resolution time, and error rate. Interactive charts compare Agent A vs Agent B performance, break down results by task type, and plot daily trends.
 
-![KPI Dashboard](docs/images/dashboard_kpis.jpg)
+![Dashboard — KPIs & Funnel](docs/images/dashboard_top.png)
+![Dashboard — A/B Comparison & Task Type Charts](docs/images/dashboard_charts.png)
+![Dashboard — Detailed Breakdown](docs/images/dashboard_bottom.png)
+
+### Workflow Builder
+Design and compare manual vs AI-assisted GTM workflows. Visualizes step-by-step processes with estimated time savings when AI agents are introduced.
+
+![Workflow Builder — Manual Process](docs/images/workflow_builder.png)
+![Workflow Builder — AI-Assisted](docs/images/workflow_builder_ai.png)
+
+### Governance & Audit Log
+Full audit trail of every agent run with governance metrics, compliance tracking, and detailed event logging.
+
+![Audit Log — Metrics & Trail](docs/images/audit_log.png)
+![Audit Log — Event Table](docs/images/audit_log_table.png)
+
+### Agent Lab
+Interactive sandbox for testing AI agents against different GTM task types (lead summaries, deal risk, follow-ups). Submit real prompts and evaluate LLM-generated outputs with feedback controls.
+
+![Agent Lab](docs/images/agent_lab.png)
 
 ### Operational Diagnostics
-Audit the `agent_runs` data directly. Includes preset buttons for common analyses (Executive Summary, Failure Audit, etc.) and a full data catalog reference.
+Audit the `agent_runs` data directly with a built-in SQL explorer. Includes preset diagnostic queries (Executive Summary, Failure Audit, etc.) and a full data catalog reference.
 
-![Diagnostics Page](docs/images/sql_explorer.jpg)
-
-### Test Agent
-Upload lead data, deal notes, or sales inputs to test the AI agent. Select a task type and receive real LLM-powered analysis with feedback buttons.
-
-![Upload Page](docs/images/upload_page.jpg)
-
-### AI Agent Response
-Real AI-generated analysis from the Llama-3.2 model. Includes Company Overview, Industry & Use Case Fit, Suggested Questions, and Recommended Next Steps.
-
-![Agent Response](docs/images/agent_response.jpg)
+![Operational Diagnostics](docs/images/diagnostics.png)
 
 ## 🎯 Role Alignment: GTM Systems & AI Engineer
 

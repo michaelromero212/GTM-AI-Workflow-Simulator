@@ -18,210 +18,174 @@
 <div class="actions-grid">
     <a href="/upload" class="action-card">
         <div class="icon">🧪</div>
-        <div class="label">Test Agent</div>
-        <div class="description">Upload data for AI analysis</div>
+        <div class="label">Agent Lab</div>
+        <div class="description">Test AI agents interactively</div>
+    </a>
+    <a href="/workflow" class="action-card">
+        <div class="icon">🔄</div>
+        <div class="label">Workflows</div>
+        <div class="description">Map current vs future state</div>
     </a>
     <a href="/dashboard" class="action-card">
         <div class="icon">📈</div>
-        <div class="label">Full Dashboard</div>
-        <div class="description">Detailed metrics & trends</div>
+        <div class="label">Dashboard</div>
+        <div class="description">Deep KPI analytics</div>
     </a>
-    <a href="/explorer" class="action-card">
-        <div class="icon">🔍</div>
-        <div class="label">SQL Explorer</div>
-        <div class="description">Query the data directly</div>
+    <a href="/audit" class="action-card">
+        <div class="icon">🛡️</div>
+        <div class="label">Audit Log</div>
+        <div class="description">Governance & compliance</div>
     </a>
 </div>
 
 <!-- Key Metrics -->
 <div class="card">
     <div class="card-header">
-        <h2>📊 Performance Snapshot</h2>
-        <p>Key metrics at a glance</p>
+        <h2>⭐ Key Metrics</h2>
+        <p>{{ summary.total_runs|int }} total agent runs</p>
     </div>
     <div class="card-body">
         <div class="metrics-grid">
-            <div class="metric-card {% if summary.acceptance_rate >= 85 %}success{% else %}warning{% endif %}">
-                <div class="metric-label">Accuracy</div>
-                <div class="metric-value">{{ "%.1f"|format(summary.acceptance_rate) }}<span>%</span></div>
-                <div class="metric-change {% if summary.acceptance_rate >= 85 %}positive{% else %}negative{% endif %}">
-                    Target: ≥85%
-                </div>
+            <div class="metric-card success">
+                <div class="metric-label">Acceptance Rate</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.acceptance_rate) }}"
+                        data-suffix="%" data-decimals="1">0</span></div>
+                <div class="metric-change">User-validated accuracy</div>
             </div>
-
-            <div class="metric-card {% if summary.avg_rating >= 4.0 %}success{% else %}warning{% endif %}">
-                <div class="metric-label">Satisfaction</div>
-                <div class="metric-value">{{ "%.2f"|format(summary.avg_rating) }}<span>/5</span></div>
-                <div class="metric-change {% if summary.avg_rating >= 4.0 %}positive{% else %}negative{% endif %}">
-                    Target: ≥4.0
-                </div>
+            <div class="metric-card">
+                <div class="metric-label">Avg Rating</div>
+                <div class="metric-value"><span data-counter="{{ '%.2f'|format(summary.avg_rating) }}" data-suffix="/5"
+                        data-decimals="2">0</span></div>
+                <div class="metric-change">User satisfaction</div>
             </div>
-
-            <div class="metric-card {% if summary.avg_resolution_time <= 5 %}success{% else %}warning{% endif %}">
-                <div class="metric-label">Avg Response</div>
-                <div class="metric-value">{{ "%.1f"|format(summary.avg_resolution_time) }}<span>s</span></div>
-                <div
-                    class="metric-change {% if summary.avg_resolution_time <= 5 %}positive{% else %}negative{% endif %}">
-                    Target: ≤5s
-                </div>
-            </div>
-
             <div class="metric-card accent">
-                <div class="metric-label">Total Runs</div>
-                <div class="metric-value">{{ summary.total_runs|int }}</div>
-                <div class="metric-change">{{ summary.unique_users|int }} active users</div>
+                <div class="metric-label">Hours Saved</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.total_hours_saved) }}"
+                        data-decimals="1">0</span></div>
+                <div class="metric-change">Cumulative time recovered</div>
+            </div>
+            <div class="metric-card {% if summary.error_rate <= 5 %}success{% else %}danger{% endif %}">
+                <div class="metric-label">Error Rate</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.error_rate) }}" data-suffix="%"
+                        data-decimals="1">0</span></div>
+                <div class="metric-change">Target: ≤5%</div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Two Column Layout -->
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-    <!-- A/B Test Summary -->
-    {% if ab_comparison %}
-    <div class="card">
-        <div class="card-header">
-            <h2>🧪 A/B Test Results</h2>
-            <p>Agent version comparison</p>
-        </div>
-        <div class="card-body">
-            <div class="chart-container small">
-                <canvas id="abChart"></canvas>
-            </div>
-            <div class="decision-box success" style="margin-top: 1rem;">
-                ✅ <strong>Decision:</strong> Agent A outperforms B on key metrics
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <!-- Lead Source Performance -->
-    <div class="card">
-        <div class="card-header">
-            <h2>📈 Performance by Source</h2>
-            <p>Accuracy by lead source</p>
-        </div>
-        <div class="card-body">
-            <div class="chart-container small">
-                <canvas id="sourceChart"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Recent Activity -->
+<!-- A/B Test Summary -->
+{% if by_version and by_version|length > 0 %}
 <div class="card">
     <div class="card-header">
-        <h2>🕐 Recent Activity</h2>
-        <p>Latest agent interactions</p>
+        <h2>🔀 A/B Test Summary</h2>
+        <p>Agent version performance comparison</p>
     </div>
-    <div class="card-body" style="padding: 0;">
-        {% if recent_activity %}
+    <div class="card-body" style="padding:0;">
         <table>
             <thead>
                 <tr>
-                    <th>Task Type</th>
-                    <th>User</th>
-                    <th>Outcome</th>
-                    <th>Time</th>
+                    <th>Version</th>
+                    <th>Runs</th>
+                    <th>Accuracy</th>
+                    <th>Satisfaction</th>
+                    <th>Avg Time</th>
+                    <th>Error Rate</th>
                 </tr>
             </thead>
             <tbody>
-                {% for run in recent_activity %}
+                {% for v in by_version %}
                 <tr>
-                    <td><code>{{ run.task_type }}</code></td>
-                    <td>{{ run.user_id }}</td>
-                    <td>
-                        <span
-                            class="badge {% if run.outcome == 'Accepted' %}badge-success{% else %}badge-danger{% endif %}">
-                            {{ run.outcome }}
-                        </span>
-                    </td>
-                    <td>{{ "%.1f"|format(run.resolution_time_seconds) }}s</td>
+                    <td><span
+                            class="badge {% if v.agent_version == 'A' %}badge-success{% else %}badge-warning{% endif %}">Agent
+                            {{ v.agent_version }}</span></td>
+                    <td>{{ v.total_tasks }}</td>
+                    <td><span
+                            class="badge {% if v.accuracy_pct >= 80 %}badge-success{% elif v.accuracy_pct >= 70 %}badge-warning{% else %}badge-danger{% endif %}">{{
+                            "%.1f"|format(v.accuracy_pct) }}%</span></td>
+                    <td>{{ "%.2f"|format(v.avg_satisfaction) }}/5</td>
+                    <td>{{ "%.2f"|format(v.avg_resolution_time) }}s</td>
+                    <td>{{ "%.1f"|format(v.error_rate) }}%</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% endif %}
     </div>
 </div>
+{% endif %}
 
-{% else %}
+<!-- Time Savings -->
+{% if time_saved and time_saved|length > 0 %}
 <div class="card">
-    <div class="card-body" style="text-align: center; padding: 3rem;">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
-        <h2>No Data Available</h2>
-        <p style="color: var(--gray-500);">Upload sample data or test the agent to generate metrics.</p>
-        <a href="/upload" class="btn btn-accent btn-lg" style="margin-top: 1rem;">Test Agent</a>
+    <div class="card-header">
+        <h2>⏱️ Time Savings by Task</h2>
+        <p>How much time AI agents save per task type</p>
+    </div>
+    <div class="card-body" style="padding:0;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Task Type</th>
+                    <th>Runs</th>
+                    <th>Total Saved</th>
+                    <th>Avg Saved/Run</th>
+                    <th>Hours Saved</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in time_saved %}
+                <tr>
+                    <td><code>{{ t.task_type }}</code></td>
+                    <td>{{ t.total_runs }}</td>
+                    <td>{{ t.total_minutes_saved }} min</td>
+                    <td>{{ t.avg_minutes_saved }} min</td>
+                    <td><strong>{{ t.total_hours_saved }}h</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
+{% endif %}
+
+<!-- Trend Chart -->
+{% if trends and trends|length > 0 %}
+<div class="card">
+    <div class="card-header">
+        <h2>📈 Adoption Trend</h2>
+    </div>
+    <div class="card-body">
+        <canvas id="overviewTrendChart" height="180"></canvas>
+    </div>
+</div>
+{% endif %}
+
 {% endif %}
 {% endblock %}
 
 {% block scripts %}
-{% if ab_comparison and top_sources %}
+{% if trends and trends|length > 0 %}
 <script>
-    // A/B Test Chart
-    const abCtx = document.getElementById('abChart').getContext('2d');
-    new Chart(abCtx, {
-        type: 'bar',
+    new Chart(document.getElementById('overviewTrendChart'), {
+        type: 'line',
         data: {
-            labels: [{% for v in ab_comparison %}'Agent {{ v.agent_version }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            labels: [{% for t in trends %}'{{ t.date }}'{% if not loop.last %}, {% endif %}{% endfor %}],
         datasets: [{
-            label: 'Accuracy %',
-            data: [{% for v in ab_comparison %}{{ "%.1f"| format(v.accuracy_pct) }}{% if not loop.last %}, {% endif %} {% endfor %}],
-    backgroundColor: ['#10b981', '#f59e0b'],
-        borderRadius: 6
+            label: 'Daily Runs',
+            data: [{% for t in trends %}{{ t.total_tasks }}{% if not loop.last %}, {% endif %} {% endfor %}],
+    borderColor: '#6366f1',
+        backgroundColor: 'rgba(99,102,241,0.15)',
+            fill: true,
+                tension: 0.4,
+                    pointRadius: 2
         }]
     },
     options: {
         responsive: true,
-            maintainAspectRatio: false,
-                plugins: {
-            legend: { display: false }
-        },
+            plugins: { legend: { display: false } },
         scales: {
-            y: {
-                beginAtZero: true,
-                    max: 100,
-                        grid: { color: '#f1f5f9' }
-            },
-            x: {
-                grid: { display: false }
-            }
-        }
-    }
-});
-
-    // Source Chart
-    const sourceCtx = document.getElementById('sourceChart').getContext('2d');
-    new Chart(sourceCtx, {
-        type: 'bar',
-        data: {
-            labels: [{% for s in top_sources %}'{{ s.lead_source|truncate(15) }}'{% if not loop.last %}, {% endif %}{% endfor %}],
-        datasets: [{
-            label: 'Accuracy %',
-            data: [{% for s in top_sources %}{{ s.accuracy }}{% if not loop.last %}, {% endif %} {% endfor %}],
-    backgroundColor: '#1b3a4b',
-        borderRadius: 6
-        }]
-    },
-    options: {
-        indexAxis: 'y',
-            responsive: true,
-                maintainAspectRatio: false,
-                    plugins: {
-            legend: { display: false }
-        },
-        scales: {
-            x: {
-                beginAtZero: true,
-                    max: 100,
-                        grid: { color: '#f1f5f9' }
-            },
-            y: {
-                grid: { display: false }
-            }
+            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#9ca3af' } },
+            x: { grid: { display: false }, ticks: { color: '#9ca3af', maxTicksLimit: 8 } }
         }
     }
 });

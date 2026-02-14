@@ -1,51 +1,221 @@
-run_id,timestamp,user_id,task_type,agent_version,resolution_time_seconds,user_accepted,user_rating,abstained,error_occurred,lead_source,crm_stage,opportunity_value
-RUN001,2026-01-08 09:15:22,USR101,lead_summary,A,3.2,True,5,False,False,Inbound - Webinar,MQL,0
-RUN002,2026-01-08 10:05:45,USR102,follow_up,A,4.5,True,4,False,False,Outbound - Cold,Discovery,50000
-RUN003,2026-01-08 11:30:12,USR101,risk_analysis,B,5.1,False,2,False,False,Inbound - Demo,Value/Impact,125000
-RUN004,2026-01-08 13:20:05,USR103,lead_summary,A,2.8,True,5,False,False,Event - Summit,SQL,0
-RUN005,2026-01-08 15:45:33,USR104,data_hygiene,A,1.5,True,4,False,False,Inbound - Whitepaper,Discovery,15000
-RUN006,2026-01-09 08:30:11,USR102,lead_summary,B,6.2,True,4,False,False,Outbound - Cold,MQL,0
-RUN007,2026-01-09 09:15:44,USR105,follow_up,A,3.8,True,5,False,False,Inbound - Webinar,Discovery,75000
-RUN008,2026-01-09 10:45:22,USR101,lead_summary,A,3.1,True,4,False,False,Outbound - Enterprise,SQL,0
-RUN009,2026-01-09 13:05:11,USR103,risk_analysis,B,4.9,True,3,False,False,Inbound - Demo,Technical Validation,250000
-RUN010,2026-01-09 14:55:02,USR106,follow_up,A,4.1,True,5,False,False,Event - Summit,Discovery,30000
-RUN011,2026-01-10 09:05:33,USR102,lead_summary,A,3.4,True,4,False,False,Inbound - Webinar,MQL,0
-RUN012,2026-01-10 10:15:11,USR107,risk_analysis,A,4.2,True,5,False,False,Inbound - Demo,Value/Impact,100000
-RUN013,2026-01-10 11:45:02,USR101,data_hygiene,B,2.5,True,4,False,False,Outbound - Cold,Discovery,0
-RUN014,2026-01-10 13:30:44,USR108,follow_up,A,3.9,True,5,False,False,Inbound - Whitepaper,Discovery,45000
-RUN015,2026-01-10 15:15:22,USR102,lead_summary,A,3.3,True,4,False,False,Event - Summit,MQL,0
-RUN016,2026-01-11 09:30:15,USR101,risk_analysis,A,4.8,True,5,False,False,Inbound - Demo,Technical Evaluation,300000
-RUN017,2026-01-11 10:20:44,USR109,lead_summary,A,3.0,True,4,False,False,Outbound - Cold,MQL,0
-RUN018,2026-01-11 11:05:12,USR101,follow_up,A,3.6,True,5,False,False,Inbound - Webinar,Discovery,60000
-RUN019,2026-01-08 09:45:22,USR110,lead_summary,A,3.5,True,4,False,False,Inbound - Webinar,MQL,0
-RUN020,2026-01-08 10:30:11,USR111,follow_up,B,4.2,True,3,False,False,Outbound - Enterprise,Discovery,95000
-RUN021,2026-01-08 11:55:02,USR101,risk_analysis,A,4.7,True,5,False,False,Inbound - Demo,Negotiation,400000
-RUN022,2026-01-08 14:15:33,USR112,lead_summary,A,2.9,True,4,False,False,Event - Summit,SQL,0
-RUN023,2026-01-08 16:05:11,USR113,data_hygiene,A,1.8,True,5,False,False,Outbound - Cold,Discovery,20000
-RUN024,2026-01-09 08:55:44,USR114,lead_summary,B,5.9,False,2,False,False,Inbound - Whitepaper,MQL,0
-RUN025,2026-01-09 10:15:22,USR101,follow_up,A,3.7,True,5,False,False,Inbound - Webinar,Discovery,80000
-RUN026,2026-01-09 11:40:11,USR115,risk_analysis,A,4.1,True,4,False,False,Inbound - Demo,Value/Impact,150000
-RUN027,2026-01-09 13:50:33,USR101,data_hygiene,A,2.1,True,5,False,False,Outbound - Cold,Discovery,0
-RUN028,2026-01-09 15:25:02,USR116,lead_summary,A,3.2,True,4,False,False,Event - Summit,MQL,0
-RUN029,2026-01-10 08:45:11,USR117,risk_analysis,A,4.5,True,5,False,False,Inbound - Demo,Technical Validation,225000
-RUN030,2026-01-10 09:55:44,USR101,follow_up,B,3.8,True,3,False,False,Inbound - Webinar,Discovery,55000
-RUN031,2026-01-10 11:15:02,USR118,lead_summary,A,3.4,True,4,False,False,Outbound - Enterprise,MQL,0
-RUN032,2026-01-10 14:05:22,USR119,risk_analysis,A,4.6,True,5,False,False,Inbound - Demo,Value/Impact,175000
-RUN033,2026-01-11 08:15:33,USR101,lead_summary,A,2.8,True,5,False,False,Inbound - Webinar,SQL,0
-RUN034,2026-01-11 09:45:11,USR120,follow_up,A,4.0,True,4,False,False,Event - Summit,Discovery,40000
-RUN035,2026-01-11 11:15:44,USR101,risk_analysis,A,4.9,True,5,False,False,Inbound - Demo,Negotiation,500000
-RUN036,2026-01-08 14:45:22,USR101,lead_summary,A,3.1,True,4,False,False,Inbound - Whitepaper,MQL,0
-RUN037,2026-01-08 16:30:11,USR121,risk_analysis,B,5.5,False,1,True,False,Inbound - Demo,Technical Evaluation,0
-RUN038,2026-01-09 11:15:33,USR101,lead_summary,A,3.0,True,5,False,False,Inbound - Webinar,SQL,0
-RUN039,2026-01-09 14:25:44,USR122,follow_up,A,4.1,True,4,False,False,Outbound - Cold,Discovery,25000
-RUN040,2026-01-10 08:15:02,USR101,risk_analysis,A,4.4,True,5,False,False,Inbound - Demo,Value/Impact,140000
-RUN041,2026-01-10 10:55:11,USR123,lead_summary,B,6.5,True,3,False,False,Event - Summit,MQL,0
-RUN042,2026-01-10 13:15:44,USR101,data_hygiene,A,1.7,True,5,False,False,Inbound - Webinar,Discovery,0
-RUN043,2026-01-10 15:45:02,USR124,follow_up,A,3.5,True,4,False,False,Inbound - Whitepaper,Discovery,35000
-RUN044,2026-01-11 09:05:33,USR101,lead_summary,A,3.2,True,5,False,False,Outbound - Enterprise,SQL,0
-RUN045,2026-01-11 10:55:11,USR125,risk_analysis,A,4.3,True,4,False,False,Inbound - Demo,Value/Impact,195000
-RUN046,2026-01-08 12:45:02,USR101,follow_up,A,3.8,True,5,False,False,Inbound - Webinar,Discovery,55000
-RUN047,2026-01-09 13:15:33,USR126,lead_summary,A,3.0,True,4,False,False,Inbound - Whitepaper,MQL,0
-RUN048,2026-01-10 14:45:11,USR101,risk_analysis,B,5.2,False,2,False,True,Inbound - Demo,Value/Impact,0
-RUN049,2026-01-11 08:30:15,USR127,lead_summary,A,3.2,True,4,False,False,Event - Summit,MQL,0
-RUN050,2026-01-11 11:20:44,USR101,follow_up,A,3.7,True,5,False,False,Inbound - Webinar,Discovery,65000
+run_id,timestamp,user_id,task_type,agent_version,resolution_time_seconds,user_accepted,user_rating,abstained,error_occurred,lead_source,crm_stage,opportunity_value,workflow_stage,time_saved_minutes,prompt_version
+RUN001,2026-01-01 09:49:27,USR119,lead_summary,B,5.15,True,5,False,False,Inbound - Whitepaper,Closed Lost,0,Pipeline Generation,19.1,v1.0
+RUN002,2026-01-01 12:18:13,USR120,risk_analysis,B,6.35,True,3,False,False,Inbound - Demo Request,Technical Validation,188116,Deal Execution,22.8,v1.0
+RUN003,2026-01-01 13:19:48,USR112,risk_analysis,B,6.63,False,1,False,True,Event - Summit,Negotiation,105332,Deal Execution,16.5,v1.0
+RUN004,2026-01-01 14:16:59,USR124,risk_analysis,B,5.58,True,5,False,False,Partner Referral,Value/Impact,293727,Deal Execution,16.5,v1.1
+RUN005,2026-01-02 09:41:27,USR112,follow_up,A,4.09,True,5,False,False,Outbound - Enterprise,MQL,0,Deal Execution,9.9,v1.0
+RUN006,2026-01-02 13:25:17,USR121,risk_analysis,A,3.24,False,2,True,False,Event - Summit,Discovery,72999,Deal Execution,20.4,v1.1
+RUN007,2026-01-02 16:12:45,USR115,risk_analysis,A,3.28,True,5,False,False,Outbound - Enterprise,SQL,96714,Deal Execution,15.3,v1.0
+RUN008,2026-01-05 08:15:12,USR109,lead_summary,A,4.28,True,4,False,False,Inbound - Whitepaper,SAL,0,Pipeline Generation,16.9,v1.0
+RUN009,2026-01-05 08:37:30,USR123,risk_analysis,B,5.09,False,1,False,True,Partner Referral,MQL,0,Deal Execution,18.3,v1.0
+RUN010,2026-01-05 08:42:14,USR116,data_hygiene,A,3.86,True,3,False,False,Outbound - Enterprise,SAL,8367,Onboarding & Adoption,9.6,v1.1
+RUN011,2026-01-05 08:55:07,USR120,lead_summary,A,2.42,True,5,False,False,Inbound - Website,MQL,0,Pipeline Generation,17.2,v1.0
+RUN012,2026-01-05 10:09:14,USR124,follow_up,A,2.93,True,5,False,False,Event - Summit,SQL,25789,Deal Execution,11.1,v1.1
+RUN013,2026-01-05 10:34:02,USR123,lead_summary,B,5.15,True,5,False,False,PLG - Free Trial,Discovery,18556,Pipeline Generation,10.8,v1.1
+RUN014,2026-01-05 11:10:26,USR130,lead_summary,B,5.69,True,4,False,False,Inbound - Website,SQL,68932,Pipeline Generation,15.8,v1.0
+RUN015,2026-01-05 11:30:39,USR116,lead_summary,A,3.78,True,5,False,False,Outbound - Cold,Technical Validation,172735,Pipeline Generation,14.0,v1.0
+RUN016,2026-01-05 11:58:36,USR122,follow_up,A,2.46,False,2,True,False,PLG - Free Trial,Discovery,15438,Deal Execution,15.0,v1.1
+RUN017,2026-01-05 13:39:20,USR111,risk_analysis,A,3.94,True,4,False,False,Event - Workshop,Closed Lost,133210,Deal Execution,16.1,v1.1
+RUN018,2026-01-05 14:26:21,USR104,risk_analysis,B,6.49,True,4,False,False,Partner Referral,MQL,10771,Deal Execution,13.8,v1.0
+RUN019,2026-01-05 15:01:47,USR118,data_hygiene,A,4.67,True,4,False,False,Event - Workshop,Technical Validation,57059,Onboarding & Adoption,4.4,v1.0
+RUN020,2026-01-05 15:14:12,USR103,lead_summary,A,3.41,True,3,False,False,Inbound - Whitepaper,SQL,13584,Pipeline Generation,14.6,v1.1
+RUN021,2026-01-05 16:15:17,USR118,lead_summary,B,6.84,True,5,False,False,Event - Summit,Negotiation,297579,Pipeline Generation,10.9,v1.0
+RUN022,2026-01-05 16:18:53,USR101,lead_summary,A,3.12,True,4,False,False,Event - Summit,SQL,143100,Pipeline Generation,11.2,v1.0
+RUN023,2026-01-05 17:04:43,USR123,lead_summary,A,4.43,True,5,False,False,Partner Referral,SQL,94352,Pipeline Generation,18.4,v1.0
+RUN024,2026-01-06 09:24:06,USR102,lead_summary,A,3.49,True,4,False,False,Event - Summit,SQL,49873,Pipeline Generation,13.9,v1.1
+RUN025,2026-01-06 11:12:12,USR109,lead_summary,B,7.07,False,2,True,False,Inbound - Whitepaper,MQL,0,Pipeline Generation,17.4,v1.0
+RUN026,2026-01-06 12:11:37,USR102,lead_summary,A,4.41,True,5,False,False,Outbound - Enterprise,Technical Validation,285825,Pipeline Generation,18.5,v1.1
+RUN027,2026-01-06 14:57:36,USR102,risk_analysis,A,3.37,True,5,False,False,Inbound - Demo Request,Discovery,88503,Deal Execution,23.6,v1.1
+RUN028,2026-01-07 13:56:04,USR128,lead_summary,A,4.06,True,4,False,False,Inbound - Whitepaper,MQL,0,Pipeline Generation,8.9,v1.0
+RUN029,2026-01-07 15:11:03,USR115,follow_up,A,3.0,True,5,False,False,Event - Workshop,Closed Won,598149,Deal Execution,6.6,v1.0
+RUN030,2026-01-07 15:35:10,USR119,data_hygiene,B,4.76,False,2,False,False,Event - Summit,Negotiation,105917,Onboarding & Adoption,4.7,v1.0
+RUN031,2026-01-07 17:36:30,USR129,follow_up,A,4.99,True,3,False,False,Inbound - Webinar,Closed Won,545856,Deal Execution,13.3,v1.1
+RUN032,2026-01-08 10:50:43,USR115,lead_summary,B,5.51,True,5,False,False,Inbound - Whitepaper,Technical Validation,50668,Pipeline Generation,11.7,v1.1
+RUN033,2026-01-08 11:47:35,USR109,lead_summary,A,4.1,True,4,False,False,Outbound - Enterprise,Discovery,81441,Pipeline Generation,18.0,v1.0
+RUN034,2026-01-08 11:48:21,USR126,data_hygiene,B,4.63,True,5,False,False,Inbound - Demo Request,MQL,19785,Onboarding & Adoption,9.8,v1.1
+RUN035,2026-01-08 14:08:02,USR129,follow_up,A,3.46,True,5,False,False,Outbound - Enterprise,MQL,20323,Deal Execution,5.3,v1.0
+RUN036,2026-01-08 15:53:34,USR116,data_hygiene,A,3.91,True,5,False,False,Event - Summit,MQL,0,Onboarding & Adoption,5.1,v1.1
+RUN037,2026-01-09 14:01:11,USR116,lead_summary,A,2.91,False,2,False,False,Inbound - Whitepaper,Negotiation,393367,Pipeline Generation,9.2,v1.0
+RUN038,2026-01-09 14:21:17,USR121,risk_analysis,B,5.94,True,4,False,False,Outbound - Enterprise,MQL,49936,Deal Execution,18.2,v1.0
+RUN039,2026-01-09 15:00:46,USR126,follow_up,A,4.62,True,5,False,False,Inbound - Webinar,MQL,0,Deal Execution,14.9,v1.0
+RUN040,2026-01-09 15:24:17,USR128,follow_up,A,4.58,True,4,False,False,Inbound - Whitepaper,Value/Impact,362466,Deal Execution,5.0,v1.1
+RUN041,2026-01-09 15:28:16,USR105,data_hygiene,B,5.37,False,1,False,False,PLG - Free Trial,SQL,55677,Onboarding & Adoption,4.9,v1.0
+RUN042,2026-01-09 15:35:45,USR130,risk_analysis,A,3.13,True,5,False,False,Partner Referral,SAL,0,Deal Execution,20.9,v1.1
+RUN043,2026-01-09 16:46:15,USR103,data_hygiene,A,3.78,True,4,False,False,Event - Workshop,MQL,10294,Onboarding & Adoption,7.3,v1.0
+RUN044,2026-01-12 08:04:45,USR104,lead_summary,A,3.44,True,4,False,False,Partner Referral,Technical Validation,81998,Pipeline Generation,17.5,v1.0
+RUN045,2026-01-12 08:37:47,USR122,data_hygiene,A,3.4,True,4,False,False,Event - Summit,Value/Impact,213865,Onboarding & Adoption,6.0,v1.1
+RUN046,2026-01-12 09:06:42,USR118,lead_summary,B,4.38,True,3,False,False,Outbound - Enterprise,Value/Impact,341698,Pipeline Generation,8.7,v1.1
+RUN047,2026-01-12 09:21:01,USR122,follow_up,A,4.83,True,5,False,False,Outbound - Cold,SQL,143015,Deal Execution,7.1,v1.0
+RUN048,2026-01-12 09:24:17,USR120,follow_up,B,3.16,True,4,False,False,Event - Summit,Negotiation,452355,Deal Execution,13.2,v1.0
+RUN049,2026-01-12 10:30:42,USR124,risk_analysis,A,2.83,True,4,False,False,Outbound - Enterprise,MQL,14388,Deal Execution,11.0,v1.1
+RUN050,2026-01-12 10:32:31,USR129,risk_analysis,A,2.47,True,4,False,False,Outbound - Enterprise,Value/Impact,347582,Deal Execution,18.9,v1.1
+RUN051,2026-01-12 10:51:44,USR110,lead_summary,A,3.21,True,5,False,False,Partner Referral,MQL,0,Pipeline Generation,13.2,v1.1
+RUN052,2026-01-12 10:51:51,USR125,risk_analysis,A,2.93,True,4,False,False,Inbound - Website,SQL,65373,Deal Execution,21.5,v1.0
+RUN053,2026-01-12 11:09:01,USR102,lead_summary,A,3.49,True,5,False,False,Outbound - Enterprise,MQL,0,Pipeline Generation,18.3,v1.0
+RUN054,2026-01-12 11:32:38,USR120,follow_up,A,3.0,True,4,False,False,Outbound - Cold,MQL,6366,Deal Execution,6.7,v1.0
+RUN055,2026-01-12 11:42:06,USR104,follow_up,A,3.15,True,4,False,False,Outbound - Enterprise,SAL,0,Deal Execution,10.1,v1.0
+RUN056,2026-01-12 12:02:45,USR125,follow_up,A,3.65,True,5,False,False,Inbound - Demo Request,MQL,0,Deal Execution,11.0,v1.2
+RUN057,2026-01-12 12:28:04,USR103,risk_analysis,A,2.88,True,5,False,False,PLG - Free Trial,SQL,92873,Deal Execution,12.3,v1.2
+RUN058,2026-01-12 12:29:15,USR128,follow_up,A,2.86,True,4,False,False,Inbound - Webinar,MQL,0,Deal Execution,11.4,v1.2
+RUN059,2026-01-12 14:24:57,USR102,lead_summary,A,1.76,True,3,False,False,Inbound - Website,SQL,134683,Pipeline Generation,14.0,v1.1
+RUN060,2026-01-12 16:58:06,USR130,follow_up,B,3.76,False,1,False,True,Event - Workshop,Closed Lost,0,Deal Execution,8.6,v1.2
+RUN061,2026-01-13 08:05:40,USR130,lead_summary,A,2.35,True,3,False,False,Outbound - Cold,SAL,0,Pipeline Generation,18.2,v1.1
+RUN062,2026-01-13 09:29:08,USR121,risk_analysis,A,2.69,True,5,False,False,Event - Summit,MQL,10552,Deal Execution,18.4,v1.1
+RUN063,2026-01-13 10:41:44,USR111,risk_analysis,B,6.14,True,5,False,False,Outbound - Enterprise,MQL,0,Deal Execution,24.3,v1.2
+RUN064,2026-01-13 14:20:13,USR111,data_hygiene,A,2.35,True,3,False,False,Partner Referral,Negotiation,326054,Onboarding & Adoption,3.3,v1.1
+RUN065,2026-01-13 15:51:26,USR120,data_hygiene,A,3.79,True,5,False,False,Inbound - Webinar,SQL,72267,Onboarding & Adoption,9.8,v1.2
+RUN066,2026-01-13 16:55:00,USR110,lead_summary,B,5.82,True,4,False,False,Inbound - Website,SQL,125499,Pipeline Generation,13.5,v1.2
+RUN067,2026-01-13 17:05:05,USR117,risk_analysis,A,3.78,True,5,False,False,Outbound - Enterprise,Discovery,36893,Deal Execution,20.7,v1.2
+RUN068,2026-01-14 08:06:38,USR114,data_hygiene,A,3.95,True,5,False,False,Inbound - Website,Value/Impact,233283,Onboarding & Adoption,9.5,v1.2
+RUN069,2026-01-14 09:49:17,USR127,lead_summary,A,4.28,True,5,False,False,Inbound - Whitepaper,MQL,0,Pipeline Generation,11.4,v1.1
+RUN070,2026-01-14 09:56:06,USR120,follow_up,B,5.16,False,1,False,True,Inbound - Website,Negotiation,337731,Deal Execution,14.4,v1.2
+RUN071,2026-01-14 11:14:08,USR119,follow_up,A,3.42,True,5,False,False,Event - Workshop,Discovery,14308,Deal Execution,11.3,v1.1
+RUN072,2026-01-14 14:31:01,USR117,lead_summary,A,3.74,True,4,False,False,Inbound - Demo Request,Discovery,104530,Pipeline Generation,8.8,v1.2
+RUN073,2026-01-14 16:31:40,USR122,follow_up,B,7.62,True,4,False,False,Outbound - Enterprise,Value/Impact,230775,Deal Execution,7.4,v1.2
+RUN074,2026-01-14 16:55:38,USR123,risk_analysis,B,5.51,True,3,False,False,Inbound - Whitepaper,Negotiation,408970,Deal Execution,17.0,v1.2
+RUN075,2026-01-15 14:35:53,USR127,follow_up,A,3.09,True,4,False,False,Outbound - Enterprise,Closed Won,565418,Deal Execution,9.0,v1.1
+RUN076,2026-01-15 15:20:59,USR124,follow_up,A,1.63,True,4,False,False,Outbound - Enterprise,SAL,29118,Deal Execution,13.9,v1.2
+RUN077,2026-01-15 16:08:12,USR111,follow_up,B,5.91,True,5,False,False,Event - Summit,MQL,0,Deal Execution,10.5,v1.1
+RUN078,2026-01-15 16:19:42,USR112,lead_summary,A,4.63,True,5,False,False,Event - Workshop,MQL,0,Pipeline Generation,18.4,v1.1
+RUN079,2026-01-15 16:42:40,USR122,risk_analysis,A,3.57,True,4,False,False,Inbound - Whitepaper,Closed Won,174715,Deal Execution,22.7,v1.2
+RUN080,2026-01-15 17:13:45,USR125,risk_analysis,A,3.23,True,4,False,False,PLG - Free Trial,MQL,34486,Deal Execution,15.6,v1.1
+RUN081,2026-01-16 12:13:42,USR123,lead_summary,A,3.25,False,1,False,False,Partner Referral,MQL,0,Pipeline Generation,17.3,v1.1
+RUN082,2026-01-16 13:57:59,USR128,follow_up,B,6.09,False,2,False,False,Event - Workshop,MQL,0,Deal Execution,13.1,v1.1
+RUN083,2026-01-16 14:38:32,USR107,data_hygiene,A,2.87,True,4,False,False,Inbound - Whitepaper,Value/Impact,316734,Onboarding & Adoption,4.6,v1.2
+RUN084,2026-01-16 15:28:28,USR113,risk_analysis,A,3.3,True,5,False,False,Inbound - Whitepaper,Technical Validation,75201,Deal Execution,11.0,v1.2
+RUN085,2026-01-19 08:14:52,USR105,data_hygiene,B,5.47,True,5,False,False,Partner Referral,SQL,57700,Onboarding & Adoption,8.4,v1.2
+RUN086,2026-01-19 09:18:27,USR128,follow_up,B,2.98,True,4,False,False,Inbound - Website,SQL,146025,Deal Execution,13.9,v1.1
+RUN087,2026-01-19 10:34:49,USR124,lead_summary,A,3.33,True,3,False,False,PLG - Free Trial,MQL,0,Pipeline Generation,15.9,v1.2
+RUN088,2026-01-19 10:40:16,USR101,data_hygiene,A,4.61,True,5,False,False,PLG - Free Trial,SAL,18815,Onboarding & Adoption,7.3,v1.2
+RUN089,2026-01-19 10:45:13,USR111,follow_up,A,4.38,True,5,False,False,Inbound - Webinar,MQL,32238,Deal Execution,9.6,v1.1
+RUN090,2026-01-19 11:42:17,USR115,risk_analysis,A,3.25,True,5,False,False,Outbound - Enterprise,Discovery,37835,Deal Execution,14.8,v1.2
+RUN091,2026-01-19 11:43:40,USR106,lead_summary,A,5.33,True,4,False,False,Outbound - Enterprise,Closed Won,352905,Pipeline Generation,10.3,v1.1
+RUN092,2026-01-19 12:15:03,USR116,follow_up,A,4.1,True,3,False,False,Inbound - Website,SAL,0,Deal Execution,5.5,v1.2
+RUN093,2026-01-19 13:38:16,USR118,follow_up,B,5.17,True,4,False,False,Event - Summit,SQL,115010,Deal Execution,5.5,v1.2
+RUN094,2026-01-19 13:57:34,USR113,lead_summary,A,3.6,True,5,False,False,PLG - Free Trial,MQL,0,Pipeline Generation,19.7,v1.1
+RUN095,2026-01-19 16:25:43,USR120,follow_up,B,4.76,False,2,True,False,Outbound - Enterprise,Value/Impact,322279,Deal Execution,9.6,v1.2
+RUN096,2026-01-19 16:56:55,USR123,data_hygiene,A,3.83,True,4,False,False,PLG - Free Trial,SQL,143618,Onboarding & Adoption,6.7,v1.2
+RUN097,2026-01-19 17:12:45,USR126,follow_up,A,3.31,True,4,False,False,Inbound - Webinar,Discovery,79607,Deal Execution,14.7,v1.1
+RUN098,2026-01-19 17:29:33,USR123,data_hygiene,A,3.84,True,5,False,False,Event - Summit,MQL,0,Onboarding & Adoption,3.2,v1.1
+RUN099,2026-01-20 08:10:24,USR111,lead_summary,A,4.21,True,5,False,False,Inbound - Webinar,Technical Validation,301939,Pipeline Generation,10.5,v1.1
+RUN100,2026-01-20 10:42:41,USR109,data_hygiene,A,4.5,False,2,False,False,Outbound - Cold,Technical Validation,130801,Onboarding & Adoption,9.7,v1.1
+RUN101,2026-01-20 13:28:57,USR113,follow_up,A,3.31,True,5,False,False,Outbound - Cold,SAL,42583,Deal Execution,14.0,v1.2
+RUN102,2026-01-20 13:42:43,USR127,risk_analysis,B,6.15,True,4,False,False,Event - Workshop,Technical Validation,281175,Deal Execution,13.2,v1.2
+RUN103,2026-01-20 14:34:47,USR104,follow_up,B,6.28,True,4,False,False,Inbound - Website,MQL,32086,Deal Execution,12.2,v1.2
+RUN104,2026-01-20 17:36:42,USR110,risk_analysis,A,4.34,False,1,False,False,Event - Workshop,Discovery,62286,Deal Execution,21.3,v1.2
+RUN105,2026-01-21 08:01:05,USR102,lead_summary,A,4.38,True,5,False,False,Inbound - Whitepaper,SQL,56081,Pipeline Generation,19.2,v1.2
+RUN106,2026-01-21 11:17:10,USR111,data_hygiene,A,4.06,False,3,False,False,Inbound - Webinar,SAL,0,Onboarding & Adoption,9.5,v1.2
+RUN107,2026-01-21 11:59:34,USR106,lead_summary,B,2.37,False,2,False,False,Inbound - Whitepaper,Value/Impact,389888,Pipeline Generation,11.1,v1.2
+RUN108,2026-01-21 12:02:00,USR113,lead_summary,A,3.57,True,4,False,False,Event - Summit,Negotiation,320155,Pipeline Generation,11.9,v1.1
+RUN109,2026-01-21 13:25:44,USR112,risk_analysis,A,3.23,True,4,False,False,Outbound - Cold,Discovery,12997,Deal Execution,13.9,v1.1
+RUN110,2026-01-21 14:43:47,USR108,risk_analysis,A,4.04,True,4,False,False,Outbound - Cold,Technical Validation,184684,Deal Execution,15.5,v1.1
+RUN111,2026-01-21 17:04:24,USR128,lead_summary,A,3.48,True,5,False,False,Inbound - Website,Value/Impact,406695,Pipeline Generation,17.1,v1.1
+RUN112,2026-01-21 17:36:33,USR128,risk_analysis,A,2.41,True,5,False,False,Partner Referral,SAL,0,Deal Execution,12.5,v1.2
+RUN113,2026-01-21 17:47:09,USR110,follow_up,A,3.2,True,5,False,False,Event - Workshop,Discovery,131209,Deal Execution,11.7,v1.1
+RUN114,2026-01-22 08:33:59,USR114,risk_analysis,A,3.33,False,3,True,False,Partner Referral,Closed Lost,28092,Deal Execution,10.5,v1.2
+RUN115,2026-01-22 13:27:26,USR112,lead_summary,A,3.23,True,5,False,False,Event - Summit,SQL,44862,Pipeline Generation,15.8,v1.2
+RUN116,2026-01-22 13:46:50,USR127,lead_summary,B,2.13,True,5,False,False,Outbound - Cold,Discovery,121182,Pipeline Generation,14.4,v1.1
+RUN117,2026-01-22 16:00:07,USR120,lead_summary,A,4.12,True,3,False,False,Inbound - Webinar,SAL,0,Pipeline Generation,8.8,v1.1
+RUN118,2026-01-22 17:25:23,USR117,lead_summary,A,5.01,True,5,False,False,Inbound - Website,Value/Impact,456880,Pipeline Generation,8.7,v1.2
+RUN119,2026-01-22 17:38:41,USR119,data_hygiene,A,2.57,True,5,False,False,Partner Referral,SAL,24693,Onboarding & Adoption,3.4,v1.2
+RUN120,2026-01-23 13:10:23,USR114,data_hygiene,B,4.48,True,5,False,False,Event - Summit,Value/Impact,217108,Onboarding & Adoption,7.9,v1.2
+RUN121,2026-01-23 13:21:48,USR105,lead_summary,A,1.96,True,5,False,False,Partner Referral,SQL,119185,Pipeline Generation,14.7,v1.2
+RUN122,2026-01-23 17:17:51,USR107,follow_up,A,3.76,True,4,False,False,Inbound - Website,MQL,0,Deal Execution,13.7,v1.1
+RUN123,2026-01-26 08:07:59,USR123,risk_analysis,A,3.61,False,2,False,False,Inbound - Website,Closed Lost,40753,Deal Execution,23.7,v1.2
+RUN124,2026-01-26 08:43:41,USR116,risk_analysis,A,4.04,True,5,False,False,Outbound - Enterprise,SQL,104278,Deal Execution,17.7,v1.2
+RUN125,2026-01-26 09:54:11,USR107,follow_up,B,5.28,False,2,True,False,Inbound - Webinar,SAL,43275,Deal Execution,8.0,v1.2
+RUN126,2026-01-26 10:12:18,USR124,lead_summary,A,2.8,True,5,False,False,Event - Workshop,Closed Lost,178216,Pipeline Generation,13.5,v1.2
+RUN127,2026-01-26 14:56:58,USR114,risk_analysis,A,1.72,True,5,False,False,Inbound - Demo Request,Closed Won,75871,Deal Execution,21.5,v1.2
+RUN128,2026-01-26 15:03:35,USR118,lead_summary,A,3.63,True,4,False,False,PLG - Free Trial,Closed Won,536552,Pipeline Generation,8.2,v1.1
+RUN129,2026-01-26 15:07:15,USR120,follow_up,A,3.16,True,5,False,False,Inbound - Whitepaper,MQL,0,Deal Execution,7.4,v1.2
+RUN130,2026-01-26 15:13:55,USR113,follow_up,B,8.47,True,4,False,False,Inbound - Website,SAL,0,Deal Execution,5.9,v1.1
+RUN131,2026-01-26 16:10:03,USR129,follow_up,A,3.4,True,5,False,False,Inbound - Demo Request,Negotiation,72309,Deal Execution,7.3,v1.2
+RUN132,2026-01-26 17:12:09,USR111,data_hygiene,B,4.72,True,3,False,False,PLG - Free Trial,Technical Validation,124033,Onboarding & Adoption,9.5,v1.2
+RUN133,2026-01-27 08:22:14,USR125,lead_summary,A,4.14,False,1,False,False,Event - Summit,Technical Validation,313410,Pipeline Generation,12.0,v1.2
+RUN134,2026-01-27 08:38:20,USR120,risk_analysis,B,3.19,True,5,False,False,Inbound - Website,Negotiation,228568,Deal Execution,19.1,v2.0
+RUN135,2026-01-27 08:47:20,USR120,data_hygiene,A,4.13,False,2,False,False,Event - Summit,SAL,43395,Onboarding & Adoption,3.6,v2.0
+RUN136,2026-01-27 09:59:24,USR110,lead_summary,A,3.62,True,4,False,False,Event - Summit,SQL,37931,Pipeline Generation,9.1,v1.2
+RUN137,2026-01-27 11:32:16,USR101,follow_up,B,6.29,True,5,False,False,Partner Referral,MQL,44193,Deal Execution,13.6,v1.2
+RUN138,2026-01-27 12:47:37,USR110,lead_summary,A,3.94,False,3,False,False,Inbound - Whitepaper,Technical Validation,118867,Pipeline Generation,9.7,v1.2
+RUN139,2026-01-27 12:49:41,USR105,lead_summary,A,3.39,True,4,False,False,Event - Workshop,Discovery,61261,Pipeline Generation,13.5,v1.2
+RUN140,2026-01-27 15:08:27,USR123,lead_summary,B,6.2,True,5,False,False,PLG - Free Trial,MQL,0,Pipeline Generation,11.8,v1.2
+RUN141,2026-01-27 15:26:03,USR112,lead_summary,A,4.15,True,5,False,False,Event - Summit,SAL,0,Pipeline Generation,17.4,v2.0
+RUN142,2026-01-28 17:20:48,USR110,lead_summary,A,3.37,True,5,False,False,Event - Workshop,Closed Won,244832,Pipeline Generation,13.3,v2.0
+RUN143,2026-01-29 16:14:37,USR120,risk_analysis,A,3.83,True,4,False,False,Event - Summit,Value/Impact,88779,Deal Execution,16.7,v2.0
+RUN144,2026-01-30 08:39:05,USR130,follow_up,A,2.35,False,2,False,False,Outbound - Enterprise,Technical Validation,311493,Deal Execution,10.9,v2.0
+RUN145,2026-02-02 08:14:04,USR109,lead_summary,B,4.14,True,5,False,False,Outbound - Enterprise,Closed Lost,0,Pipeline Generation,8.1,v2.0
+RUN146,2026-02-02 09:01:47,USR101,lead_summary,B,6.57,True,4,False,False,PLG - Free Trial,Technical Validation,109033,Pipeline Generation,12.1,v2.0
+RUN147,2026-02-02 09:03:25,USR124,follow_up,A,4.79,True,4,False,False,Partner Referral,Discovery,134823,Deal Execution,6.0,v2.0
+RUN148,2026-02-02 09:46:57,USR118,risk_analysis,A,4.28,True,4,False,False,Inbound - Whitepaper,Closed Won,280761,Deal Execution,17.7,v1.2
+RUN149,2026-02-02 09:49:41,USR113,lead_summary,A,3.59,False,1,False,True,PLG - Free Trial,Negotiation,285706,Pipeline Generation,15.1,v2.0
+RUN150,2026-02-02 09:56:08,USR115,lead_summary,A,4.31,True,5,False,False,Partner Referral,SAL,0,Pipeline Generation,11.9,v1.2
+RUN151,2026-02-02 11:25:21,USR119,lead_summary,A,4.18,True,4,False,False,Event - Workshop,Technical Validation,185946,Pipeline Generation,19.0,v2.0
+RUN152,2026-02-02 13:05:52,USR116,lead_summary,A,3.35,True,4,False,False,Event - Summit,Discovery,110587,Pipeline Generation,13.1,v1.2
+RUN153,2026-02-02 15:09:16,USR107,risk_analysis,A,4.52,True,4,False,False,Inbound - Webinar,Negotiation,55024,Deal Execution,17.3,v2.0
+RUN154,2026-02-02 15:13:34,USR108,risk_analysis,B,5.2,True,5,False,False,Event - Workshop,MQL,0,Deal Execution,21.9,v2.0
+RUN155,2026-02-02 16:00:42,USR112,lead_summary,A,3.93,True,5,False,False,Inbound - Demo Request,SAL,0,Pipeline Generation,14.5,v2.0
+RUN156,2026-02-02 16:01:58,USR128,follow_up,B,6.36,True,4,False,False,Inbound - Website,SAL,7112,Deal Execution,7.6,v2.0
+RUN157,2026-02-02 16:14:43,USR126,risk_analysis,A,3.59,True,5,False,False,Event - Summit,MQL,0,Deal Execution,22.2,v2.0
+RUN158,2026-02-02 16:26:14,USR122,lead_summary,A,2.92,True,4,False,False,Outbound - Cold,Closed Won,564403,Pipeline Generation,19.8,v1.2
+RUN159,2026-02-02 16:53:00,USR122,risk_analysis,A,3.26,True,5,False,False,Inbound - Whitepaper,Technical Validation,159789,Deal Execution,21.4,v2.0
+RUN160,2026-02-02 17:06:04,USR129,follow_up,A,3.65,True,4,False,False,Inbound - Demo Request,SQL,82935,Deal Execution,11.9,v2.0
+RUN161,2026-02-02 17:56:55,USR107,follow_up,B,7.27,False,2,False,False,Outbound - Enterprise,Negotiation,467164,Deal Execution,10.3,v1.2
+RUN162,2026-02-03 09:43:56,USR102,data_hygiene,B,5.23,True,4,False,False,Event - Workshop,Value/Impact,407853,Onboarding & Adoption,8.3,v2.0
+RUN163,2026-02-03 11:32:30,USR130,lead_summary,B,6.88,True,3,False,False,Inbound - Whitepaper,Negotiation,208264,Pipeline Generation,9.9,v2.0
+RUN164,2026-02-04 09:38:40,USR121,data_hygiene,A,4.61,True,5,False,False,Outbound - Cold,Value/Impact,445959,Onboarding & Adoption,4.6,v1.2
+RUN165,2026-02-04 12:15:17,USR113,lead_summary,A,4.45,False,3,True,False,Event - Summit,Technical Validation,280452,Pipeline Generation,8.8,v1.2
+RUN166,2026-02-04 12:39:51,USR119,lead_summary,B,5.96,True,4,False,False,Inbound - Whitepaper,Technical Validation,104896,Pipeline Generation,8.8,v1.2
+RUN167,2026-02-04 14:31:25,USR119,lead_summary,A,3.31,True,4,False,False,Inbound - Demo Request,Negotiation,123407,Pipeline Generation,17.0,v2.0
+RUN168,2026-02-04 16:42:45,USR123,risk_analysis,A,2.39,True,4,False,False,PLG - Free Trial,Technical Validation,348553,Deal Execution,14.3,v2.0
+RUN169,2026-02-05 13:15:16,USR121,lead_summary,B,5.65,True,4,False,False,Inbound - Website,Discovery,39555,Pipeline Generation,10.9,v2.0
+RUN170,2026-02-05 13:51:55,USR125,follow_up,A,4.55,False,3,False,False,PLG - Free Trial,SQL,55290,Deal Execution,12.6,v2.0
+RUN171,2026-02-05 15:52:04,USR118,lead_summary,A,3.89,False,2,False,False,Event - Summit,SQL,115454,Pipeline Generation,9.0,v1.2
+RUN172,2026-02-05 16:27:53,USR114,follow_up,A,5.27,True,5,False,False,Outbound - Enterprise,SQL,27331,Deal Execution,8.1,v1.2
+RUN173,2026-02-05 16:51:38,USR112,risk_analysis,B,6.3,True,5,False,False,Inbound - Whitepaper,MQL,0,Deal Execution,12.5,v1.2
+RUN174,2026-02-06 09:00:29,USR114,follow_up,B,5.86,True,4,False,False,Inbound - Demo Request,Value/Impact,65391,Deal Execution,8.4,v2.0
+RUN175,2026-02-06 09:43:47,USR129,lead_summary,A,3.22,True,4,False,False,Outbound - Enterprise,MQL,0,Pipeline Generation,17.3,v2.0
+RUN176,2026-02-06 11:23:27,USR128,follow_up,B,4.98,True,3,False,False,Event - Workshop,SQL,49343,Deal Execution,6.8,v1.2
+RUN177,2026-02-06 11:43:19,USR102,lead_summary,B,4.72,True,5,False,False,PLG - Free Trial,SQL,141607,Pipeline Generation,16.1,v2.0
+RUN178,2026-02-06 11:45:19,USR107,lead_summary,B,4.49,False,1,False,False,Outbound - Cold,SQL,129733,Pipeline Generation,8.1,v2.0
+RUN179,2026-02-06 11:53:40,USR130,lead_summary,B,5.25,False,3,False,False,Partner Referral,Value/Impact,178517,Pipeline Generation,9.8,v2.0
+RUN180,2026-02-06 13:50:59,USR107,follow_up,A,4.27,False,1,False,True,Event - Summit,Negotiation,431270,Deal Execution,8.1,v1.2
+RUN181,2026-02-06 16:09:17,USR124,follow_up,A,6.03,True,3,False,False,Partner Referral,SQL,107646,Deal Execution,9.6,v2.0
+RUN182,2026-02-09 08:46:29,USR111,lead_summary,A,4.5,True,3,False,False,Inbound - Whitepaper,SAL,0,Pipeline Generation,11.1,v1.2
+RUN183,2026-02-09 08:57:22,USR114,data_hygiene,A,3.1,True,5,False,False,Inbound - Demo Request,MQL,15772,Onboarding & Adoption,6.3,v2.0
+RUN184,2026-02-09 09:24:55,USR107,lead_summary,A,4.28,True,5,False,False,Outbound - Cold,Negotiation,415364,Pipeline Generation,15.2,v2.0
+RUN185,2026-02-09 10:42:05,USR118,risk_analysis,A,3.51,True,5,False,False,Inbound - Webinar,Closed Won,499167,Deal Execution,18.3,v1.2
+RUN186,2026-02-09 12:05:54,USR122,lead_summary,A,4.25,True,3,False,False,Inbound - Whitepaper,SAL,0,Pipeline Generation,12.8,v2.0
+RUN187,2026-02-09 14:46:10,USR115,risk_analysis,A,3.42,True,3,False,False,Inbound - Whitepaper,MQL,0,Deal Execution,10.6,v2.0
+RUN188,2026-02-09 15:18:27,USR109,lead_summary,B,7.39,False,2,False,False,Outbound - Enterprise,SAL,0,Pipeline Generation,10.2,v2.0
+RUN189,2026-02-09 15:22:19,USR126,follow_up,A,2.64,True,5,False,False,Event - Summit,MQL,0,Deal Execution,11.3,v2.0
+RUN190,2026-02-09 15:42:33,USR101,follow_up,A,2.73,True,5,False,False,PLG - Free Trial,Discovery,111811,Deal Execution,7.7,v1.2
+RUN191,2026-02-09 16:19:59,USR109,lead_summary,A,3.55,False,2,False,False,Inbound - Whitepaper,MQL,0,Pipeline Generation,15.9,v2.0
+RUN192,2026-02-09 16:43:46,USR119,follow_up,B,4.79,False,3,False,False,Event - Summit,SQL,55537,Deal Execution,6.8,v2.0
+RUN193,2026-02-09 16:49:08,USR103,lead_summary,B,3.63,True,5,False,False,Event - Workshop,Discovery,56021,Pipeline Generation,13.9,v1.2
+RUN194,2026-02-09 17:44:01,USR105,lead_summary,A,2.82,True,4,False,False,Outbound - Enterprise,Technical Validation,199653,Pipeline Generation,8.7,v1.2
+RUN195,2026-02-10 11:14:01,USR106,follow_up,B,6.56,False,2,False,False,Inbound - Demo Request,SQL,94568,Deal Execution,6.4,v2.0
+RUN196,2026-02-10 13:37:35,USR127,risk_analysis,A,2.19,True,4,False,False,PLG - Free Trial,Value/Impact,167040,Deal Execution,20.0,v2.0
+RUN197,2026-02-10 14:16:53,USR130,lead_summary,A,4.4,False,3,False,False,PLG - Free Trial,MQL,0,Pipeline Generation,15.2,v2.0
+RUN198,2026-02-11 08:39:09,USR122,risk_analysis,A,4.43,True,5,False,False,Outbound - Enterprise,Closed Lost,0,Deal Execution,22.3,v2.0
+RUN199,2026-02-11 09:29:26,USR129,risk_analysis,B,5.11,False,1,False,True,Event - Summit,SQL,120009,Deal Execution,24.5,v2.0
+RUN200,2026-02-11 12:32:31,USR111,follow_up,B,6.11,True,5,False,False,Inbound - Website,MQL,0,Deal Execution,7.9,v1.2
+RUN201,2026-02-11 15:58:08,USR121,lead_summary,A,3.86,True,5,False,False,PLG - Free Trial,Negotiation,419363,Pipeline Generation,8.4,v1.2
+RUN202,2026-02-11 16:21:01,USR108,lead_summary,B,4.74,True,4,False,False,Partner Referral,SAL,0,Pipeline Generation,11.4,v1.2
+RUN203,2026-02-11 17:24:30,USR106,lead_summary,A,3.23,True,3,False,False,Event - Workshop,SAL,0,Pipeline Generation,8.3,v2.0
+RUN204,2026-02-12 08:48:51,USR129,risk_analysis,B,5.22,True,5,False,False,Outbound - Cold,MQL,40659,Deal Execution,12.8,v2.0
+RUN205,2026-02-12 09:28:51,USR119,follow_up,A,2.92,True,5,False,False,Inbound - Demo Request,MQL,27530,Deal Execution,14.7,v1.2
+RUN206,2026-02-12 11:25:07,USR113,lead_summary,A,3.73,True,5,False,False,PLG - Free Trial,Negotiation,299698,Pipeline Generation,11.6,v1.2
+RUN207,2026-02-12 12:32:48,USR126,data_hygiene,B,6.95,True,5,False,False,Inbound - Whitepaper,Closed Won,200284,Onboarding & Adoption,9.8,v2.0
+RUN208,2026-02-12 12:53:40,USR130,lead_summary,A,2.66,True,4,False,False,PLG - Free Trial,SAL,0,Pipeline Generation,18.9,v1.2
+RUN209,2026-02-12 13:13:41,USR119,risk_analysis,A,2.01,False,3,True,False,Inbound - Whitepaper,MQL,0,Deal Execution,23.9,v2.0
+RUN210,2026-02-12 16:06:03,USR113,risk_analysis,B,4.44,False,3,False,False,PLG - Free Trial,Technical Validation,49642,Deal Execution,12.6,v2.0
+RUN211,2026-02-13 11:23:18,USR110,lead_summary,A,5.13,True,4,False,False,Outbound - Enterprise,MQL,0,Pipeline Generation,17.8,v2.0
+RUN212,2026-02-13 11:31:14,USR114,lead_summary,B,5.81,True,5,False,False,Event - Workshop,Value/Impact,218227,Pipeline Generation,11.2,v2.0
+RUN213,2026-02-13 14:17:48,USR128,risk_analysis,A,4.2,True,5,False,False,Inbound - Whitepaper,MQL,38213,Deal Execution,12.0,v2.0
+RUN214,2026-02-13 15:39:52,USR127,follow_up,A,3.08,True,4,False,False,Inbound - Webinar,Closed Won,233781,Deal Execution,7.7,v1.2
+RUN215,2026-02-13 16:05:37,USR109,follow_up,A,3.25,True,4,False,False,Partner Referral,SQL,52864,Deal Execution,13.4,v2.0
+RUN216,2026-02-13 17:12:45,USR114,risk_analysis,A,2.96,True,4,False,False,Inbound - Website,Technical Validation,138386,Deal Execution,14.0,v1.2
+RUN217,2026-02-13 17:15:37,USR123,follow_up,B,4.64,True,4,False,False,PLG - Free Trial,Value/Impact,210148,Deal Execution,12.1,v2.0
+RUN218,2026-02-16 08:55:21,USR122,risk_analysis,A,2.67,True,4,False,False,PLG - Free Trial,SQL,36820,Deal Execution,10.1,v1.2
+RUN219,2026-02-16 10:39:36,USR129,data_hygiene,B,4.39,True,5,False,False,Outbound - Enterprise,Negotiation,186916,Onboarding & Adoption,7.6,v2.0
+RUN220,2026-02-16 16:28:57,USR121,risk_analysis,A,3.14,True,3,False,False,Event - Summit,Technical Validation,103363,Deal Execution,20.8,v2.0

@@ -1,123 +1,286 @@
 {% extends "layout.html" %}
 
-{% block title %}Test Agent - GTM Ops{% endblock %}
-{% block page_title %}Test Agent{% endblock %}
-{% block page_subtitle %}Upload data for AI-powered analysis{% endblock %}
+{% block title %}Agent Lab - GTM Ops{% endblock %}
+{% block page_title %}Agent Lab{% endblock %}
+{% block page_subtitle %}Test AI agents with interactive forms or file uploads{% endblock %}
 
 {% set active_page = 'upload' %}
 
 {% block content %}
-{% if success %}
-<div class="alert alert-success">
-    <div>
-        <strong>✅ Success!</strong> File "{{ filename }}" processed successfully<br>
-        <span style="font-size: 0.875rem;">Confidence: {{ confidence }} | Time: {{ "%.2f"|format(resolution_time)
-            }}s</span>
-    </div>
+<!-- Tab Navigation -->
+<div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('playground')" id="tab-playground">🧪 Interactive
+        Playground</button>
+    <button class="tab-btn" onclick="switchTab('upload')" id="tab-upload">📤 File Upload</button>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <h2>🤖 Agent Response</h2>
-        <p>AI-generated analysis</p>
-    </div>
-    <div class="card-body">
-        <div class="agent-response">
-            <div class="response-content">{{ result }}</div>
+<!-- ======================== PLAYGROUND TAB ======================== -->
+<div class="tab-content active" id="content-playground">
 
-            <div class="feedback-buttons">
-                <span style="font-size: 0.875rem; color: var(--gray-500); margin-right: 0.5rem;">Was this
-                    helpful?</span>
-                <button class="feedback-btn" onclick="submitFeedback(true)" title="Yes, helpful">👍</button>
-                <button class="feedback-btn" onclick="submitFeedback(false)" title="No, not helpful">👎</button>
+    <!-- Task Type Selector -->
+    <div class="card">
+        <div class="card-header">
+            <h2>🤖 Select a Task</h2>
+            <p>Choose a GTM workflow task to test the AI agent</p>
+        </div>
+        <div class="card-body">
+            <div class="actions-grid responsive-grid-4">
+                <button class="action-card task-selector active" onclick="selectTask('lead_summary')"
+                    id="task-lead_summary">
+                    <div class="icon">📋</div>
+                    <div class="label">Lead Summary</div>
+                    <div class="description">Qualify & research leads</div>
+                </button>
+                <button class="action-card task-selector" onclick="selectTask('follow_up')" id="task-follow_up">
+                    <div class="icon">📧</div>
+                    <div class="label">Follow-Up</div>
+                    <div class="description">Next-action suggestions</div>
+                </button>
+                <button class="action-card task-selector" onclick="selectTask('risk_analysis')" id="task-risk_analysis">
+                    <div class="icon">⚠️</div>
+                    <div class="label">Risk Analysis</div>
+                    <div class="description">Deal risk signals</div>
+                </button>
+                <button class="action-card task-selector" onclick="selectTask('data_hygiene')" id="task-data_hygiene">
+                    <div class="icon">🧹</div>
+                    <div class="label">Data Hygiene</div>
+                    <div class="description">CRM data quality</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Form -->
+    <div class="card">
+        <div class="card-header">
+            <h2 id="formTitle">📋 Lead Summary</h2>
+            <p id="formSubtitle">Fill in lead details or click "Run Demo" for pre-populated data</p>
+        </div>
+        <div class="card-body">
+            <!-- Lead Summary Form -->
+            <form id="form-lead_summary" class="task-form active">
+                <div class="responsive-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Lead Name</label>
+                        <input type="text" id="ls-lead_name" class="form-control" placeholder="Jane Smith">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Company</label>
+                        <input type="text" id="ls-company_name" class="form-control" placeholder="Acme Analytics">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Industry</label>
+                        <input type="text" id="ls-industry" class="form-control" placeholder="SaaS / Data Analytics">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Lead Source</label>
+                        <input type="text" id="ls-source" class="form-control" placeholder="Webinar Registration">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Additional Context</label>
+                    <textarea id="ls-additional_context" class="form-control" rows="3"
+                        placeholder="Any relevant notes about the lead..."></textarea>
+                </div>
+            </form>
+
+            <!-- Follow-Up Form -->
+            <form id="form-follow_up" class="task-form">
+                <div class="responsive-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" id="fu-customer_name" class="form-control" placeholder="Acme Corp">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Interaction Date</label>
+                        <input type="date" id="fu-interaction_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Interaction Type</label>
+                        <select id="fu-interaction_type" class="form-control">
+                            <option value="Product Demo">Product Demo</option>
+                            <option value="Discovery Call">Discovery Call</option>
+                            <option value="Technical Deep Dive">Technical Deep Dive</option>
+                            <option value="Executive Briefing">Executive Briefing</option>
+                            <option value="POC Review">POC Review</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deal Stage</label>
+                        <select id="fu-deal_stage" class="form-control">
+                            <option value="Discovery">Discovery</option>
+                            <option value="Technical Validation">Technical Validation</option>
+                            <option value="Value/Impact">Value/Impact</option>
+                            <option value="Negotiation">Negotiation</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Interaction Summary</label>
+                    <textarea id="fu-summary" class="form-control" rows="3"
+                        placeholder="Key points from the interaction..."></textarea>
+                </div>
+            </form>
+
+            <!-- Risk Analysis Form -->
+            <form id="form-risk_analysis" class="task-form">
+                <div class="responsive-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Deal Name</label>
+                        <input type="text" id="ra-deal_name" class="form-control"
+                            placeholder="Acme Corp - Enterprise License">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deal Stage</label>
+                        <select id="ra-deal_stage" class="form-control">
+                            <option value="Discovery">Discovery</option>
+                            <option value="Technical Validation">Technical Validation</option>
+                            <option value="Value/Impact">Value/Impact</option>
+                            <option value="Negotiation">Negotiation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Activity Date</label>
+                        <input type="date" id="ra-last_activity_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stakeholders</label>
+                        <input type="text" id="ra-stakeholders" class="form-control"
+                            placeholder="CTO, VP Engineering, Data Lead">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Engagement Summary</label>
+                    <textarea id="ra-engagement_summary" class="form-control" rows="3"
+                        placeholder="Recent engagement details..."></textarea>
+                </div>
+            </form>
+
+            <!-- Data Hygiene Form -->
+            <form id="form-data_hygiene" class="task-form">
+                <div class="responsive-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Record Type</label>
+                        <select id="dh-record_type" class="form-control">
+                            <option value="Contact">Contact</option>
+                            <option value="Account">Account</option>
+                            <option value="Opportunity">Opportunity</option>
+                            <option value="Lead">Lead</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Record Name</label>
+                        <input type="text" id="dh-record_name" class="form-control" placeholder="John Doe - Acme Corp">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Current Fields (comma-separated)</label>
+                    <input type="text" id="dh-fields_present" class="form-control"
+                        placeholder="Name, Email, Company, Title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Missing Fields (comma-separated)</label>
+                    <input type="text" id="dh-fields_missing" class="form-control"
+                        placeholder="Phone, Industry, Revenue, Employee Count">
+                </div>
+            </form>
+
+            <!-- Action Buttons -->
+            <div style="display:flex; gap:0.75rem; margin-top:1rem;">
+                <button class="btn btn-accent btn-lg" onclick="runAgent()" id="runBtn">
+                    🚀 Run Agent
+                </button>
+                <button class="btn btn-outline btn-lg" onclick="fillDemo()">
+                    ✨ Fill Demo Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Response Area -->
+    <div class="card" id="responseCard" style="display:none;">
+        <div class="card-header">
+            <h2>🤖 Agent Response</h2>
+            <p id="responseInfo">Processing...</p>
+        </div>
+        <div class="card-body">
+            <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+                <div class="spinner"></div>
+                <span>Agent analyzing...</span>
+            </div>
+            <div class="agent-response" id="agentResponse" style="display:none;">
+                <div class="agent-response-header">
+                    <span class="badge badge-info" id="confidenceBadge">Confidence: —</span>
+                    <span id="resolutionTime" style="font-size:0.875rem; color:var(--gray-500);"></span>
+                </div>
+                <div class="response-content" id="responseContent"></div>
+                <div class="feedback-buttons">
+                    <span style="font-size:0.875rem; color:var(--gray-500); margin-right:0.5rem;">Was this
+                        helpful?</span>
+                    <button class="feedback-btn" onclick="submitFeedback(true)" title="Yes, helpful">👍</button>
+                    <button class="feedback-btn" onclick="submitFeedback(false)" title="No, not helpful">👎</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endif %}
 
-{% if error %}
-<div class="alert alert-danger">
-    <strong>Error:</strong> {{ error }}
-</div>
-{% endif %}
-
-<div class="card">
-    <div class="card-header">
-        <h2>📤 Upload File for Processing</h2>
-        <p>Upload lead data, deal notes, or sales inputs for agent analysis</p>
+<!-- ======================== UPLOAD TAB ======================== -->
+<div class="tab-content" id="content-upload">
+    {% if success %}
+    <div class="alert alert-success">
+        <div>
+            <strong>✅ Success!</strong> File "{{ filename }}" processed successfully<br>
+            <span style="font-size:0.875rem;">Confidence: {{ confidence }} | Time: {{ "%.2f"|format(resolution_time)
+                }}s</span>
+        </div>
     </div>
-    <div class="card-body">
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label class="form-label">Task Type</label>
-                <select name="task_type" class="form-control" required>
-                    <option value="lead_summary">Lead Summary</option>
-                    <option value="follow_up">Follow-up Suggestions</option>
-                    <option value="risk_analysis">Risk Analysis</option>
-                    <option value="data_hygiene">Data Hygiene</option>
-                </select>
+    <div class="card">
+        <div class="card-header">
+            <h2>🤖 Agent Response</h2>
+        </div>
+        <div class="card-body">
+            <div class="agent-response">
+                <div class="response-content">{{ result }}</div>
+                <div class="feedback-buttons">
+                    <span style="font-size:0.875rem; color:var(--gray-500); margin-right:0.5rem;">Was this
+                        helpful?</span>
+                    <button class="feedback-btn" onclick="submitFeedback(true)">👍</button>
+                    <button class="feedback-btn" onclick="submitFeedback(false)">👎</button>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label class="form-label">Select File (CSV, TXT, or JSON)</label>
-                <input type="file" name="file" class="form-control" accept=".csv,.txt,.json" required>
-            </div>
-
-            <button type="submit" class="btn btn-accent btn-lg">
-                🚀 Upload & Process
-            </button>
-        </form>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <h2>💡 Example Input</h2>
-        <p>Sample content you can save as a .txt file and upload</p>
-    </div>
-    <div class="card-body">
-        <pre
-            style="background: var(--gray-50); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem;">Lead Name: Sarah Chen
-Company: TechVision Analytics
-Industry: SaaS / Data Analytics
-Source: Webinar Registration - "Modern Data Stack 2026"
-Context:
-- Downloaded lakehouse architecture whitepaper
-- Company size: 200 employees
-- Current stack: Snowflake, dbt, Fivetran
-- Pain points mentioned: High costs, slow ELT, limited ML capabilities
-- Next step: Discovery call scheduled for next week</pre>
-    </div>
-</div>
-
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-    <div class="card">
-        <div class="card-body">
-            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">📋 Lead Summary</h3>
-            <p style="font-size: 0.875rem; color: var(--gray-500); margin: 0;">Analyzes lead data and provides
-                qualification insights</p>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">📧 Follow-up</h3>
-            <p style="font-size: 0.875rem; color: var(--gray-500); margin: 0;">Suggests next actions based on
-                interaction history</p>
-        </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger">
+        <strong>Error:</strong> {{ error }}
     </div>
+    {% endif %}
+
     <div class="card">
-        <div class="card-body">
-            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">⚠️ Risk Analysis</h3>
-            <p style="font-size: 0.875rem; color: var(--gray-500); margin: 0;">Identifies deal risks and mitigation
-                strategies</p>
+        <div class="card-header">
+            <h2>📤 Upload File for Processing</h2>
+            <p>Upload lead data, deal notes, or sales inputs for agent analysis</p>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
-            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">🧹 Data Hygiene</h3>
-            <p style="font-size: 0.875rem; color: var(--gray-500); margin: 0;">Flags data quality issues and duplicates
-            </p>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="form-label">Task Type</label>
+                    <select name="task_type" class="form-control" required>
+                        <option value="lead_summary">Lead Summary</option>
+                        <option value="follow_up">Follow-up Suggestions</option>
+                        <option value="risk_analysis">Risk Analysis</option>
+                        <option value="data_hygiene">Data Hygiene</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select File (CSV, TXT, or JSON)</label>
+                    <input type="file" name="file" class="form-control" accept=".csv,.txt,.json" required>
+                </div>
+                <button type="submit" class="btn btn-accent btn-lg">🚀 Upload & Process</button>
+            </form>
         </div>
     </div>
 </div>
@@ -125,18 +288,129 @@ Context:
 
 {% block scripts %}
 <script>
+    let currentTask = 'lead_summary';
+
+    const demoData = {
+        lead_summary: {
+            'ls-lead_name': 'Sarah Chen',
+            'ls-company_name': 'StreamVault Technologies',
+            'ls-industry': 'SaaS / Real-Time Analytics',
+            'ls-source': 'Webinar - "Event-Driven Architecture 2026"',
+            'ls-additional_context': 'Downloaded streaming architecture whitepaper. Company: 350 employees, Series C. Current stack: Kafka, Snowflake, dbt. Pain points: high latency in ETL, needs real-time customer event processing. Champion: VP of Data Engineering. Next step: discovery call next week.'
+        },
+        follow_up: {
+            'fu-customer_name': 'Meridian Financial Corp',
+            'fu-interaction_date': '2026-02-10',
+            'fu-interaction_type': 'Technical Deep Dive',
+            'fu-deal_stage': 'Technical Validation',
+            'fu-summary': 'Deep dive on real-time fraud detection use case. CTO and VP Engineering attended. Very engaged on stream processing latency benchmarks. Asked about SOC 2 compliance and data residency. Requested POC environment for 2-week evaluation. Budget holder (CFO) not yet involved.'
+        },
+        risk_analysis: {
+            'ra-deal_name': 'NovaTech Industries - Platform License',
+            'ra-deal_stage': 'Value/Impact',
+            'ra-last_activity_date': '2026-01-28',
+            'ra-stakeholders': 'CTO (champion), VP Engineering (evaluator), CFO (not yet engaged)',
+            'ra-engagement_summary': 'Last meeting was 17 days ago. POC completed successfully but no follow-up scheduled. Champion went silent after internal reorg announced. Competitor (Confluent alternative) mentioned in last call. $280K deal at risk.'
+        },
+        data_hygiene: {
+            'dh-record_type': 'Account',
+            'dh-record_name': 'Apex Digital Solutions',
+            'dh-fields_present': 'Name, Website, Industry, Account Owner, Last Activity Date',
+            'dh-fields_missing': 'Employee Count, Annual Revenue, Technology Stack, Key Contacts, Renewal Date, Support Tier'
+        }
+    };
+
+    const taskTitles = {
+        lead_summary: { icon: '📋', title: 'Lead Summary', subtitle: 'Fill in lead details or click "Fill Demo Data" for pre-populated data' },
+        follow_up: { icon: '📧', title: 'Follow-Up Suggestions', subtitle: 'Provide interaction context for smart follow-up recommendations' },
+        risk_analysis: { icon: '⚠️', title: 'Risk Analysis', subtitle: 'Enter deal information to identify risk signals' },
+        data_hygiene: { icon: '🧹', title: 'Data Hygiene Check', subtitle: 'Specify CRM record details for data quality analysis' }
+    };
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        document.getElementById('content-' + tab).classList.add('active');
+    }
+
+    function selectTask(task) {
+        currentTask = task;
+        document.querySelectorAll('.task-selector').forEach(b => b.classList.remove('active'));
+        document.getElementById('task-' + task).classList.add('active');
+        document.querySelectorAll('.task-form').forEach(f => f.classList.remove('active'));
+        document.getElementById('form-' + task).classList.add('active');
+        const info = taskTitles[task];
+        document.getElementById('formTitle').textContent = info.icon + ' ' + info.title;
+        document.getElementById('formSubtitle').textContent = info.subtitle;
+    }
+
+    function fillDemo() {
+        const data = demoData[currentTask];
+        for (const [id, value] of Object.entries(data)) {
+            const el = document.getElementById(id);
+            if (el) el.value = value;
+        }
+        showToast('Demo data loaded — click Run Agent to test', 'info');
+    }
+
+    async function runAgent() {
+        const form = document.getElementById('form-' + currentTask);
+        const formData = new FormData();
+        formData.append('task_type', currentTask);
+
+        // Collect form fields based on task type
+        const prefix = { lead_summary: 'ls', follow_up: 'fu', risk_analysis: 'ra', data_hygiene: 'dh' }[currentTask];
+        form.querySelectorAll('input, select, textarea').forEach(el => {
+            const fieldName = el.id.replace(prefix + '-', '');
+            formData.append(fieldName, el.value);
+        });
+
+        // Show loading
+        document.getElementById('responseCard').style.display = 'block';
+        document.getElementById('loadingSpinner').style.display = 'flex';
+        document.getElementById('agentResponse').style.display = 'none';
+        document.getElementById('runBtn').disabled = true;
+        document.getElementById('runBtn').textContent = '⏳ Processing...';
+
+        try {
+            const response = await fetch('/agent/query', { method: 'POST', body: formData });
+            const data = await response.json();
+
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('agentResponse').style.display = 'block';
+            document.getElementById('responseContent').textContent = data.response || data.error;
+            document.getElementById('confidenceBadge').textContent = 'Confidence: ' + (data.confidence || 'N/A');
+            document.getElementById('resolutionTime').textContent = '⏱️ ' + (data.resolution_time || 0).toFixed(2) + 's';
+            document.getElementById('responseInfo').textContent =
+                data.success ? 'AI-generated analysis' : 'Error occurred';
+
+            if (data.success) {
+                showToast('Agent run complete — Dashboard updated', 'success');
+            } else {
+                showToast('Agent error: ' + (data.error || 'Unknown'), 'error');
+            }
+        } catch (err) {
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('agentResponse').style.display = 'block';
+            document.getElementById('responseContent').textContent = 'Error: ' + err.message;
+            showToast('Network error', 'error');
+        }
+
+        document.getElementById('runBtn').disabled = false;
+        document.getElementById('runBtn').textContent = '🚀 Run Agent';
+    }
+
     function submitFeedback(helpful) {
         const buttons = document.querySelectorAll('.feedback-btn');
         buttons.forEach(btn => btn.classList.remove('active-up', 'active-down'));
-
         if (helpful) {
-            buttons[0].classList.add('active-up');
+            event.target.classList.add('active-up');
+            showToast('Thanks! Feedback recorded as positive', 'success');
         } else {
-            buttons[1].classList.add('active-down');
+            event.target.classList.add('active-down');
+            showToast('Thanks! Feedback recorded — we\'ll improve', 'info');
         }
-
-        // TODO: Send feedback to server
-        console.log('Feedback submitted:', helpful);
     }
 </script>
 {% endblock %}

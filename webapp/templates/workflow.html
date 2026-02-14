@@ -1,0 +1,186 @@
+{% extends "layout.html" %}
+
+{% block title %}Workflows - GTM Ops{% endblock %}
+{% block page_title %}GTM Workflow Builder{% endblock %}
+{% block page_subtitle %}Current-state vs AI-assisted workflow mapping{% endblock %}
+
+{% set active_page = 'workflow' %}
+
+{% block content %}
+<!-- Toggle -->
+<div class="workflow-toggle-bar">
+    <span class="workflow-toggle-label" id="toggleLabel">🔴 Manual Process</span>
+    <label class="toggle-switch">
+        <input type="checkbox" id="workflowToggle" onchange="toggleWorkflow()">
+        <span class="toggle-slider"></span>
+    </label>
+    <span class="workflow-toggle-label" id="toggleLabelAI">🟢 AI-Assisted</span>
+</div>
+
+<!-- Time Savings Banner -->
+<div class="card savings-banner" id="savingsBanner" style="display:none;">
+    <div class="card-body" style="text-align:center; padding:1.25rem;">
+        <div style="display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;">
+            <div>
+                <div class="metric-label">Total Time Saved</div>
+                <div class="metric-value" style="color:var(--success);">
+                    {% if time_saved %}{{ "%.0f"|format(time_saved.total_minutes_saved) }}{% else %}2,792{% endif
+                    %}<span> min</span>
+                </div>
+            </div>
+            <div>
+                <div class="metric-label">Hours Recovered</div>
+                <div class="metric-value" style="color:var(--success);">
+                    {% if time_saved %}{{ "%.1f"|format(time_saved.total_hours_saved) }}{% else %}46.5{% endif %}<span>
+                        hrs</span>
+                </div>
+            </div>
+            <div>
+                <div class="metric-label">Workflows Automated</div>
+                <div class="metric-value" style="color:var(--success);">
+                    {% if time_saved %}{{ time_saved.total_runs }}{% else %}220{% endif %}<span> runs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Workflow Pipeline -->
+<div class="workflow-pipeline">
+    {% set stages = [
+    {
+    "id": "pipeline",
+    "icon": "🎯",
+    "title": "Pipeline Generation",
+    "agent": "Lead Brief Generator",
+    "manual_time": "25-30 min per lead",
+    "ai_time": "< 4 sec", "manual_steps" : ["Manual CRM research", "Google/LinkedIn lookup" , "Copy-paste into notes"
+        , "Write qualification summary" ], "ai_steps" : ["Auto-pull CRM + enrichment data", "AI generates lead brief"
+        , "Qualification signals scored" , "Next-best-action recommended" ], "kpi" : "Research Time, Conversion Rate"
+        , "savings" : "~40% reduction in research time" }, { "id" : "execution" , "icon" : "⚡" , "title"
+        : "Deal Execution" , "agent" : "Risk Signal Classifier" , "manual_time" : "15-20 min per deal review"
+        , "ai_time" : "< 5 sec" , "manual_steps" : ["Manual deal inspection in CRM", "Check email for recent activity"
+        , "Cross-reference stakeholder list" , "Flag risks in spreadsheet" ], "ai_steps" : ["Auto-detect stalled
+        deals", "Missing stakeholder alerts" , "Competitive threat flagging" , "Risk mitigation suggestions" ], "kpi"
+        : "Slipped Deals %, Forecast Accuracy" , "savings" : "68% → 82% suggestion acceptance" }, { "id" : "onboarding"
+        , "icon" : "🚀" , "title" : "Onboarding & Adoption" , "agent" : "Usage Insight Summary" , "manual_time"
+        : "20-30 min per account" , "ai_time" : "< 5 sec" , "manual_steps" : ["Pull usage data from product
+        analytics", "Cross-reference with CSM notes" , "Manually score health" , "Update CRM fields one by one"
+        ], "ai_steps" : ["Auto-aggregate usage metrics", "Health score computed in real-time"
+        , "Adoption milestones tracked" , "Expansion triggers identified" ], "kpi" : "Time-to-Value, Expansion Signals"
+        , "savings" : "+15% CRM data completeness" }, { "id" : "renewal" , "icon" : "🔄" , "title"
+        : "Renewal & Expansion" , "agent" : "Health Risk Flags + NBA" , "manual_time" : "30+ min per renewal review"
+        , "ai_time" : "< 5 sec" , "manual_steps" : ["Pull renewal dates from CRM", "Check support ticket history"
+        , "Review NPS/CSAT scores" , "Manually assess churn risk" ], "ai_steps" : ["Churn prediction model
+        scored", "Upsell/cross-sell signals surfaced" , "Auto-generated renewal brief"
+        , "Proactive outreach recommended" ], "kpi" : "Renewal Rate, NRR Impact" , "savings"
+        : "11% → 3% hallucination rate" } ] %} {% for stage in stages %} <div class="workflow-stage"
+        id="stage-{{ stage.id }}">
+        <div class="stage-header">
+            <span class="stage-icon">{{ stage.icon }}</span>
+            <div>
+                <h3 class="stage-title">{{ stage.title }}</h3>
+                <span class="stage-agent badge badge-info">{{ stage.agent }}</span>
+            </div>
+        </div>
+
+        <!-- Manual view -->
+        <div class="stage-content manual-view">
+            <div class="stage-time warning">⏱️ {{ stage.manual_time }}</div>
+            <ul class="stage-steps">
+                {% for step in stage.manual_steps %}
+                <li class="step-manual">{{ step }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- AI view -->
+        <div class="stage-content ai-view" style="display:none;">
+            <div class="stage-time success">⚡ {{ stage.ai_time }}</div>
+            <ul class="stage-steps">
+                {% for step in stage.ai_steps %}
+                <li class="step-ai">{{ step }}</li>
+                {% endfor %}
+            </ul>
+            <div class="stage-savings">{{ stage.savings }}</div>
+        </div>
+
+        <div class="stage-footer">
+            <span class="stage-kpi">📊 {{ stage.kpi }}</span>
+        </div>
+
+        {% if not loop.last %}
+        <div class="stage-connector">
+            <svg width="24" height="40" viewBox="0 0 24 40">
+                <path d="M12 0 L12 30 L6 24 M12 30 L18 24" stroke="currentColor" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        {% endif %}
+</div>
+{% endfor %}
+</div>
+
+<!-- Workflow Stage Metrics -->
+{% if workflow_metrics %}
+<div class="card" style="margin-top:2rem;">
+    <div class="card-header">
+        <h2>📊 Performance by Workflow Stage</h2>
+        <p>Metrics from {{ total_runs }} agent runs</p>
+    </div>
+    <div class="card-body" style="padding:0;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Workflow Stage</th>
+                    <th>Runs</th>
+                    <th>Accuracy</th>
+                    <th>Time Saved</th>
+                    <th>Avg Saved/Run</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in workflow_metrics %}
+                <tr>
+                    <td><strong>{{ m.workflow_stage }}</strong></td>
+                    <td>{{ m.total_tasks }}</td>
+                    <td>
+                        <span
+                            class="badge {% if m.accuracy_pct >= 85 %}badge-success{% elif m.accuracy_pct >= 75 %}badge-warning{% else %}badge-danger{% endif %}">
+                            {{ "%.1f"|format(m.accuracy_pct) }}%
+                        </span>
+                    </td>
+                    <td>{{ "%.0f"|format(m.total_time_saved) }} min</td>
+                    <td>{{ "%.1f"|format(m.avg_time_saved) }} min</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function toggleWorkflow() {
+        const isAI = document.getElementById('workflowToggle').checked;
+        const manualViews = document.querySelectorAll('.manual-view');
+        const aiViews = document.querySelectorAll('.ai-view');
+        const banner = document.getElementById('savingsBanner');
+        const stages = document.querySelectorAll('.workflow-stage');
+
+        manualViews.forEach(v => v.style.display = isAI ? 'none' : 'block');
+        aiViews.forEach(v => v.style.display = isAI ? 'block' : 'none');
+        banner.style.display = isAI ? 'block' : 'none';
+
+        stages.forEach((stage, i) => {
+            if (isAI) {
+                stage.classList.add('ai-active');
+                stage.style.animationDelay = (i * 0.15) + 's';
+            } else {
+                stage.classList.remove('ai-active');
+            }
+        });
+    }
+</script>
+{% endblock %}

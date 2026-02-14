@@ -17,161 +17,196 @@
 <!-- North Star Metrics -->
 <div class="card">
     <div class="card-header">
-        <h2>📈 Overall Performance</h2>
-        <p>Aggregated metrics across all agent runs</p>
+        <h2>⭐ North Star Metrics</h2>
     </div>
     <div class="card-body">
         <div class="metrics-grid">
-            <div class="metric-card {% if summary.acceptance_rate >= 85 %}success{% else %}warning{% endif %}">
-                <div class="metric-label">Task Accuracy</div>
-                <div class="metric-value">{{ "%.1f"|format(summary.acceptance_rate) }}<span>%</span></div>
-                <div class="metric-change">Target: ≥85%</div>
+            <div class="metric-card accent">
+                <div class="metric-label">Total Runs</div>
+                <div class="metric-value"><span data-counter="{{ summary.total_runs|int }}" data-decimals="0">0</span>
+                </div>
+                <div class="metric-change">Across all agent types</div>
             </div>
-
-            <div class="metric-card {% if summary.avg_rating >= 4.0 %}success{% else %}warning{% endif %}">
-                <div class="metric-label">User Satisfaction</div>
-                <div class="metric-value">{{ "%.2f"|format(summary.avg_rating) }}<span>/5</span></div>
-                <div class="metric-change">Target: ≥4.0</div>
+            <div class="metric-card success">
+                <div class="metric-label">Acceptance Rate</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.acceptance_rate) }}"
+                        data-suffix="%" data-decimals="1">0</span></div>
+                <div class="metric-change">User-validated accuracy</div>
             </div>
-
-            <div class="metric-card {% if summary.avg_resolution_time <= 5 %}success{% else %}warning{% endif %}">
-                <div class="metric-label">Avg Resolution Time</div>
-                <div class="metric-value">{{ "%.2f"|format(summary.avg_resolution_time) }}<span>s</span></div>
-                <div class="metric-change">Target: ≤5s</div>
+            <div class="metric-card">
+                <div class="metric-label">Avg Rating</div>
+                <div class="metric-value"><span data-counter="{{ '%.2f'|format(summary.avg_rating) }}" data-suffix="/5"
+                        data-decimals="2">0</span></div>
+                <div class="metric-change">User satisfaction</div>
             </div>
-
-            <div class="metric-card {% if summary.error_rate <= 2 %}success{% else %}danger{% endif %}">
-                <div class="metric-label">Error Rate</div>
-                <div class="metric-value">{{ "%.1f"|format(summary.error_rate) }}<span>%</span></div>
-                <div class="metric-change">Target: ≤2%</div>
+            <div class="metric-card success">
+                <div class="metric-label">Hours Saved</div>
+                <div class="metric-value"><span data-counter="{{ '%.1f'|format(summary.total_hours_saved) }}"
+                        data-suffix="h" data-decimals="1">0</span></div>
+                <div class="metric-change">Cumulative time recovered</div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Pipeline Funnel -->
+{% if funnel %}
+<div class="card">
+    <div class="card-header">
+        <h2>📊 Pipeline Funnel</h2>
+        <p>Agent activity distribution across CRM stages</p>
+    </div>
+    <div class="card-body">
+        <div class="funnel-chart">
+            {% set max_count = funnel|map(attribute='count')|max %}
+            {% for stage in funnel %}
+            <div class="funnel-row">
+                <div class="funnel-label">{{ stage.crm_stage }}</div>
+                <div class="funnel-bar-container">
+                    <div class="funnel-bar" style="width:{{ (stage.count / max_count * 100)|int }}%;">
+                        <span class="funnel-count">{{ stage.count }}</span>
+                    </div>
+                </div>
+                <div class="funnel-value">${{ "{:,.0f}".format(stage.total_value) }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <!-- Charts Row -->
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-    <!-- A/B Test Chart -->
-    {% if ab_comparison %}
+<div class="dashboard-charts-grid responsive-grid-2">
+    <!-- A/B Test Comparison -->
+    {% if by_version and by_version|length > 0 %}
     <div class="card">
         <div class="card-header">
-            <h2>🧪 A/B Test Comparison</h2>
-            <p>Agent A (baseline) vs Agent B (experimental)</p>
+            <h2>🔀 A/B Test Comparison</h2>
         </div>
         <div class="card-body">
-            <div class="chart-container">
-                <canvas id="abCompareChart"></canvas>
-            </div>
-            <div class="decision-box success" style="margin-top: 1rem;">
-                ✅ <strong>Decision:</strong> Continue with Agent A (see experiments/ab_test.md)
+            <div class="chart-wrapper">
+                <canvas id="abChart"></canvas>
             </div>
         </div>
     </div>
     {% endif %}
 
-    <!-- Task Type Breakdown -->
-    {% if by_task %}
+    <!-- Performance by Task Type -->
+    {% if by_task and by_task|length > 0 %}
     <div class="card">
         <div class="card-header">
             <h2>📋 Performance by Task Type</h2>
-            <p>Metrics breakdown by operation type</p>
         </div>
         <div class="card-body">
-            <div class="chart-container">
-                <canvas id="taskTypeChart"></canvas>
+            <div class="chart-wrapper">
+                <canvas id="taskChart"></canvas>
             </div>
         </div>
     </div>
     {% endif %}
 </div>
 
-<!-- Tables Row -->
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
-    <!-- By Task Type Table -->
-    {% if by_task %}
-    <div class="card">
-        <div class="card-header">
-            <h2>📊 Task Type Details</h2>
-        </div>
-        <div class="card-body" style="padding: 0;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task Type</th>
-                        <th>Volume</th>
-                        <th>Accuracy</th>
-                        <th>Satisfaction</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for task in by_task %}
-                    <tr>
-                        <td><code>{{ task.task_type }}</code></td>
-                        <td>{{ task.total_tasks }}</td>
-                        <td>
-                            <span
-                                class="badge {% if task.accuracy_pct >= 90 %}badge-success{% elif task.accuracy_pct >= 80 %}badge-warning{% else %}badge-danger{% endif %}">
-                                {{ "%.1f"|format(task.accuracy_pct) }}%
-                            </span>
-                        </td>
-                        <td>{{ "%.2f"|format(task.avg_satisfaction) }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% endif %}
-
-    <!-- By Lead Source Table -->
-    {% if by_source %}
-    <div class="card">
-        <div class="card-header">
-            <h2>🎯 GTM Analysis: By Lead Source</h2>
-        </div>
-        <div class="card-body" style="padding: 0;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Lead Source</th>
-                        <th>Volume</th>
-                        <th>Accuracy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for source in by_source %}
-                    <tr>
-                        <td>{{ source.lead_source }}</td>
-                        <td>{{ source.volume }}</td>
-                        <td>
-                            <span
-                                class="badge {% if source.accuracy >= 90 %}badge-success{% elif source.accuracy >= 80 %}badge-warning{% else %}badge-danger{% endif %}">
-                                {{ source.accuracy }}%
-                            </span>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% endif %}
-</div>
-
-<!-- Daily Trends -->
-{% if trends %}
-<div class="card" style="margin-top: 1.5rem;">
+<!-- Trends -->
+{% if trends and trends|length > 0 %}
+<div class="card">
     <div class="card-header">
-        <h2>📅 Daily Trends</h2>
-        <p>Time-series performance metrics</p>
+        <h2>📈 Daily Trends</h2>
     </div>
     <div class="card-body">
-        <div class="chart-container">
+        <div class="chart-wrapper chart-wrapper--wide">
             <canvas id="trendsChart"></canvas>
         </div>
     </div>
 </div>
 {% endif %}
+
+<!-- Operational Metrics -->
+<div class="card">
+    <div class="card-header">
+        <h2>📉 Safety & Guardrails</h2>
+    </div>
+    <div class="card-body">
+        <div class="metrics-grid responsive-grid-4">
+            <div class="metric-card {% if summary.error_rate <= 5 %}success{% else %}danger{% endif %}">
+                <div class="metric-label">Error Rate</div>
+                <div class="metric-value">{{ "%.1f"|format(summary.error_rate) }}%</div>
+                <div class="metric-change">Target: ≤5%</div>
+            </div>
+            <div class="metric-card {% if summary.abstention_rate >= 3 %}success{% else %}warning{% endif %}">
+                <div class="metric-label">Abstention Rate</div>
+                <div class="metric-value">{{ "%.1f"|format(summary.abstention_rate) }}%</div>
+                <div class="metric-change">Appropriate escalation</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Avg Resolution</div>
+                <div class="metric-value">{{ "%.2f"|format(summary.avg_resolution_time) }}s</div>
+                <div class="metric-change">Per agent task</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Active Users</div>
+                <div class="metric-value">{{ summary.unique_users|int }}</div>
+                <div class="metric-change">Unique users</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Runs Table -->
+<div class="card">
+    <div class="card-header">
+        <h2>📋 Recent Agent Runs</h2>
+        <p>Page {{ page }} of {{ total_pages }} ({{ total_runs }} total)</p>
+    </div>
+    <div class="card-body" style="padding:0; overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Run ID</th>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Task</th>
+                    <th>Version</th>
+                    <th>Accepted</th>
+                    <th>Rating</th>
+                    <th>Stage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for run in runs %}
+                <tr>
+                    <td><code>{{ run.run_id }}</code></td>
+                    <td>{{ run.timestamp }}</td>
+                    <td>{{ run.user_id }}</td>
+                    <td><code>{{ run.task_type }}</code></td>
+                    <td><span
+                            class="badge {% if run.agent_version == 'A' %}badge-success{% else %}badge-warning{% endif %}">{{
+                            run.agent_version }}</span></td>
+                    <td>{{ "✅" if run.user_accepted else "❌" }}</td>
+                    <td>{{ run.user_rating }}/5</td>
+                    <td>{{ run.crm_stage }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/dashboard?page={{ page - 1 }}&per_page={{ per_page }}" class="btn btn-outline">← Previous</a>
+        {% endif %}
+        <div class="pagination-info">
+            <select onchange="window.location.href='/dashboard?page=1&per_page='+this.value" class="form-control"
+                style="width:auto;display:inline-block;">
+                {% for n in [10, 15, 25, 50] %}
+                <option value="{{ n }}" {% if per_page==n %}selected{% endif %}>{{ n }} per page</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% if page < total_pages %} <a href="/dashboard?page={{ page + 1 }}&per_page={{ per_page }}"
+            class="btn btn-outline">Next →</a>
+            {% endif %}
+    </div>
+</div>
 
 {% endif %}
 {% endif %}
@@ -179,97 +214,87 @@
 
 {% block scripts %}
 <script>
-    {% if ab_comparison %}
-    // A/B Comparison Chart
-    new Chart(document.getElementById('abCompareChart'), {
+    {% if by_version and by_version | length > 0 %}
+    new Chart(document.getElementById('abChart'), {
         type: 'bar',
         data: {
-            labels: ['Accuracy %', 'Satisfaction', 'Avg Time (s)', 'Error Rate %'],
-            datasets: [
-                {
-                    label: 'Agent A',
-                    data: [{{ ab_comparison[0].accuracy_pct }}, {{ ab_comparison[0].avg_satisfaction }}, {{ ab_comparison[0].avg_resolution_time }}, {{ ab_comparison[0].error_rate }}],
-        backgroundColor: '#10b981',
-        borderRadius: 4
-            },
-        {% if ab_comparison | length > 1 %}
-    {
-        label: 'Agent B',
-            data: [{{ ab_comparison[1].accuracy_pct }}, {{ab_comparison[1].avg_satisfaction}}, {{ab_comparison[1].avg_resolution_time}}, {{ab_comparison[1].error_rate}}],
-    backgroundColor: '#f59e0b',
-        borderRadius: 4
-            }
-    {% endif %}
-        ]
+            labels: [{% for v in by_version %}'Agent {{ v.agent_version }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Accuracy %',
+            data: [{% for v in by_version %}{{ "%.1f"| format(v.accuracy_pct) }}{% if not loop.last %}, {% endif %} {% endfor %}],
+    backgroundColor: ['rgba(16, 185, 129, 0.8)', 'rgba(245, 158, 11, 0.8)'],
+        borderRadius: 6
+        }, {
+        label: 'Avg Rating',
+            data: [{% for v in by_version %}{{ "%.2f"|format(v.avg_satisfaction) }}{% if not loop.last %}, {% endif %} {% endfor %}],
+    backgroundColor: ['rgba(16, 185, 129, 0.3)', 'rgba(245, 158, 11, 0.3)'],
+        borderRadius: 6
+        }]
     },
     options: {
         responsive: true,
             maintainAspectRatio: false,
-                plugins: { legend: { position: 'top'}},
+                plugins: { legend: { position: 'top', labels: { color: '#9ca3af' } } },
         scales: {
-            y: { beginAtZero: true, grid: { color: '#f1f5f9'}},
-            x: { grid: { display: false}}
+            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#9ca3af' } },
+            x: { grid: { display: false }, ticks: { color: '#9ca3af' } }
         }
     }
 });
     {% endif %}
 
-    {% if by_task %}
-    // Task Type Chart
-    new Chart(document.getElementById('taskTypeChart'), {
+    {% if by_task and by_task | length > 0 %}
+    new Chart(document.getElementById('taskChart'), {
         type: 'doughnut',
         data: {
             labels: [{% for t in by_task %}'{{ t.task_type }}'{% if not loop.last %}, {% endif %}{% endfor %}],
         datasets: [{
             data: [{% for t in by_task %}{{ t.total_tasks }}{% if not loop.last %}, {% endif %} {% endfor %}],
-    backgroundColor: ['#1b3a4b', '#ff6f00', '#10b981', '#3b82f6', '#8b5cf6'],
+    backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#ef4444'],
         borderWidth: 0
         }]
     },
     options: {
         responsive: true,
             maintainAspectRatio: false,
-                plugins: {
-            legend: { position: 'right' }
-        }
+                plugins: { legend: { position: 'bottom', labels: { color: '#9ca3af', padding: 12 } } }
     }
 });
     {% endif %}
 
-    {% if trends %}
-    // Trends Chart
+    {% if trends and trends | length > 0 %}
     new Chart(document.getElementById('trendsChart'), {
         type: 'line',
         data: {
             labels: [{% for t in trends %}'{{ t.date }}'{% if not loop.last %}, {% endif %}{% endfor %}],
-        datasets: [
-        {
-            label: 'Accuracy %',
-            data: [{% for t in trends %}{{ "%.1f"| format(t.accuracy_pct) }}{% if not loop.last %}, {% endif %} {% endfor %}],
-    borderColor: '#10b981',
-        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        datasets: [{
+            label: 'Tasks',
+            data: [{% for t in trends %}{{ t.total_tasks }}{% if not loop.last %}, {% endif %} {% endfor %}],
+    borderColor: '#6366f1',
+        backgroundColor: 'rgba(99,102,241,0.1)',
             fill: true,
-                tension: 0.3
-            },
-    {
-        label: 'Tasks',
-            data: [{% for t in trends %} {{t.total_tasks}} {% if not loop.last %}, {% endif %} {% endfor %}],
-    borderColor: '#1b3a4b',
-        backgroundColor: 'transparent',
-            tension: 0.3,
-                yAxisID: 'y1'
-            }
-        ]
+                tension: 0.4,
+                    pointRadius: 2
+        }, {
+        label: 'Accuracy %',
+            data: [{% for t in trends %}{{ "%.1f"|format(t.accuracy_pct) }}{% if not loop.last %}, {% endif %} {% endfor %}],
+    borderColor: '#10b981',
+        backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+                tension: 0.4,
+                    pointRadius: 2,
+                        yAxisID: 'y1'
+        }]
     },
     options: {
         responsive: true,
             maintainAspectRatio: false,
-                interaction: { intersect: false, mode: 'index' },
-        plugins: { legend: { position: 'top'}},
+                interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { position: 'top', labels: { color: '#9ca3af' } } },
         scales: {
-            y: { beginAtZero: true, max: 100, position: 'left', grid: { color: '#f1f5f9'}},
-            y1: { beginAtZero: true, position: 'right', grid: { display: false}},
-            x: { grid: { display: false}}
+            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#9ca3af' } },
+            y1: { position: 'right', grid: { display: false }, ticks: { color: '#9ca3af' }, min: 0, max: 100 },
+            x: { grid: { display: false }, ticks: { color: '#9ca3af', maxTicksLimit: 10 } }
         }
     }
 });
