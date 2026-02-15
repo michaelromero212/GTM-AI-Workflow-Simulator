@@ -41,10 +41,11 @@ GTM teams lose pipeline velocity to manual research, inconsistent deal inspectio
 ## 🏗️ Project Structure
 
 ```
-Databricks-AI-Agent-Operations-&-GTM-Ops-Simulator/
+GTM-AI-Workflow-Simulator/
 ├── README.md                          # This file
 ├── requirements.txt                   # Python dependencies
 ├── .gitignore                         # Git exclusions
+├── .env.example                       # Environment variable template
 │
 ├── docs/                              # Business documentation
 │   ├── business_intent.md            # Agent definition & governance
@@ -110,10 +111,14 @@ pip install -r requirements.txt
 ### 2. Configure Hugging Face Token (Optional)
 
 ```bash
-export HF_TOKEN="your_huggingface_token_here"
+# Copy the template and add your token
+cp .env.example .env
+# Edit .env and replace the placeholder with your real token
 ```
 
-Get a free token from [Hugging Face](https://huggingface.co/settings/tokens). The agent works without a token using mock responses.
+Get a free token from [Hugging Face](https://huggingface.co/settings/tokens). Without a token the agent uses mock responses — all UI features still work.
+
+> ⚠️ **Never commit your `.env` file.** It is already in `.gitignore`.
 
 ### 3. Run the Web Application
 
@@ -176,11 +181,13 @@ This project demonstrates core competencies for **GTM AI** roles:
 
 ## 🚀 Key Features
 
-### 🤖 AI Agent
-- Accepts GTM tasks: lead summaries, follow-up suggestions, deal risk signals
-- Uses Hugging Face LLMs (Llama-3.2-3B-Instruct)
-- Implements governance rules and escalation logic
-- Falls back to mock responses without token
+### 🤖 AI Agent (Live LLM Integration)
+- Accepts GTM tasks: lead summaries, follow-up suggestions, deal risk analysis, data hygiene
+- Powered by **Llama-3.2-3B-Instruct** via Hugging Face Inference API
+- **Live connection status** — sidebar indicator shows real-time AI health, model name, and API latency
+- **Dual-mode operation** — full LLM responses with token, or mock responses without (graceful fallback)
+- Implements governance rules, escalation logic, and abstention for out-of-scope queries
+- Health-check endpoint: `GET /api/ai-status` returns `connected`, `disconnected`, or `no_token`
 
 ### 📉 Operational Diagnostics
 - **Overview**: Quick KPI snapshot, A/B comparison charts, recent activity
@@ -234,7 +241,8 @@ Governance is built into every workflow, not bolted on after deployment:
 
 ## 🔒 Security & Best Practices
 
-- ✅ Secrets via environment variables (no credentials in code)
+- ✅ **No secrets in code or git history** — token passed via `HF_TOKEN` env var only
+- ✅ `.env` excluded via `.gitignore`; `.env.example` provided as safe template
 - ✅ Input validation and SQL injection prevention
 - ✅ Virtual environment isolation
 - ✅ Rate limiting and security headers
