@@ -235,12 +235,29 @@ code {
     justify-content: space-between;
 }
 
-.status-indicator {
+/* AI Status Widget */
+.ai-status-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.ai-status-row {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
+}
+
+.ai-status-detail {
+    font-size: 0.65rem;
     color: var(--text-secondary);
+    padding-left: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 0.85rem;
 }
 
 .status-dot {
@@ -248,12 +265,56 @@ code {
     height: 8px;
     border-radius: 50%;
     background: var(--gray-500);
+    flex-shrink: 0;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.status-dot.active {
+.status-dot.connected {
     background: var(--success);
     box-shadow: 0 0 6px var(--success);
     animation: pulse 2s infinite;
+}
+
+.status-dot.disconnected {
+    background: var(--danger);
+    box-shadow: 0 0 6px var(--danger);
+}
+
+.status-dot.no-token {
+    background: var(--warning);
+    box-shadow: 0 0 6px var(--warning);
+}
+
+.status-dot.checking {
+    background: var(--warning);
+    animation: pulse 0.8s infinite;
+}
+
+.status-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    flex: 1;
+    min-width: 0;
+}
+
+.ai-recheck-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.ai-recheck-btn:hover {
+    color: var(--accent-light);
+}
+
+.ai-recheck-btn.spin {
+    animation: spinBtn 1s linear infinite;
 }
 
 @keyframes pulse {
@@ -264,7 +325,17 @@ code {
     }
 
     50% {
-        opacity: 0.5;
+        opacity: 0.4;
+    }
+}
+
+@keyframes spinBtn {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
 

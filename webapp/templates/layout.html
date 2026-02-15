@@ -54,9 +54,14 @@
         </nav>
 
         <div class="sidebar-footer">
-            <div class="status-indicator">
-                <span class="status-dot active"></span>
-                <span class="status-text">Agent Online</span>
+            <div class="ai-status-widget" id="aiStatusWidget">
+                <div class="ai-status-row">
+                    <span class="status-dot checking" id="aiStatusDot"></span>
+                    <span class="status-text" id="aiStatusText">Checking AI…</span>
+                    <button class="ai-recheck-btn" id="aiRecheckBtn" onclick="checkAIStatus()"
+                        title="Recheck AI connection">↻</button>
+                </div>
+                <div class="ai-status-detail" id="aiStatusDetail"></div>
             </div>
             <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
                 <span id="darkModeIcon">🌙</span>
@@ -165,6 +170,50 @@
         // Close sidebar on window resize to desktop
         window.addEventListener('resize', () => {
             if (window.innerWidth > 1024) closeSidebar();
+        });
+
+        // ── AI Status Check ──────────────────────────────
+        async function checkAIStatus() {
+            const dot = document.getElementById('aiStatusDot');
+            const text = document.getElementById('aiStatusText');
+            const detail = document.getElementById('aiStatusDetail');
+            const btn = document.getElementById('aiRecheckBtn');
+
+            dot.className = 'status-dot checking';
+            text.textContent = 'Checking AI…';
+            detail.textContent = '';
+            btn.classList.add('spin');
+
+            try {
+                const res = await fetch('/api/ai-status');
+                const data = await res.json();
+                btn.classList.remove('spin');
+
+                if (data.status === 'connected') {
+                    dot.className = 'status-dot connected';
+                    text.textContent = 'AI Connected';
+                    const model = data.model.split('/').pop();
+                    detail.textContent = `${model} · ${data.latency_ms}ms`;
+                } else if (data.status === 'no_token') {
+                    dot.className = 'status-dot no-token';
+                    text.textContent = 'No Token';
+                    detail.textContent = 'Using mock responses';
+                } else {
+                    dot.className = 'status-dot disconnected';
+                    text.textContent = 'Disconnected';
+                    detail.textContent = data.message ? data.message.slice(0, 60) : 'API error';
+                }
+            } catch (err) {
+                btn.classList.remove('spin');
+                dot.className = 'status-dot disconnected';
+                text.textContent = 'Offline';
+                detail.textContent = 'Cannot reach server';
+            }
+        }
+
+        // Auto-check on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAIStatus();
         });
     </script>
 

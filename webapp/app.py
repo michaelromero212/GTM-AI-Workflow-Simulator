@@ -55,6 +55,62 @@ def log_agent_run(run_data: dict):
         writer.writerow(run_data)
 
 
+# ──────────────────────── API ENDPOINTS ────────────────────────
+
+
+@app.get("/api/ai-status")
+async def ai_status():
+    """Check AI/LLM connection health by pinging the Hugging Face API"""
+    import time as _time
+    import requests as _requests
+
+    # No token configured
+    if not agent.hf_token:
+        return JSONResponse({
+            "status": "no_token",
+            "model": agent.model,
+            "message": "No HF_TOKEN configured — agent uses mock responses",
+            "latency_ms": None
+        })
+
+    # Attempt a lightweight API call
+    try:
+        start = _time.time()
+        resp = _requests.post(
+            "https://router.huggingface.co/v1/chat/completions",
+            headers={"Authorization": f"Bearer {agent.hf_token}"},
+            json={
+                "model": agent.model,
+                "messages": [{"role": "user", "content": "Hi"}],
+                "max_tokens": 5,
+            },
+            timeout=15,
+        )
+        latency = round((_time.time() - start) * 1000)
+
+        if resp.status_code == 200:
+            return JSONResponse({
+                "status": "connected",
+                "model": agent.model,
+                "message": "LLM is responding",
+                "latency_ms": latency
+            })
+        else:
+            return JSONResponse({
+                "status": "disconnected",
+                "model": agent.model,
+                "message": f"API returned {resp.status_code}: {resp.text[:120]}",
+                "latency_ms": latency
+            })
+    except Exception as exc:
+        return JSONResponse({
+            "status": "disconnected",
+            "model": agent.model,
+            "message": str(exc)[:150],
+            "latency_ms": None
+        })
+
+
 # ──────────────────────── ROUTES ────────────────────────
 
 
