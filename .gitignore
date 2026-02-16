@@ -53,3 +53,6 @@ data/uploaded_inputs/*
 .pytest_cache/
 .coverage
 htmlcov/
+
+# QA results (regenerable)
+qa/qa_results_*.json

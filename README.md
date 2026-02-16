@@ -210,9 +210,6 @@ GTM-AI-Workflow-Simulator/
 │   ├── load_data.py                  # Data ingestion (DuckDB)
 │   └── queries.sql                   # SQL queries for KPIs
 │
-├── dashboards/                        # Visualization
-│   └── kpi_dashboard.ipynb           # Jupyter dashboard
-│
 ├── experiments/                       # A/B testing
 │   └── ab_test.md                    # Experiment documentation
 │

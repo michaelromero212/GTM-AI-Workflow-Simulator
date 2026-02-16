@@ -220,3 +220,4 @@ RUN218,2026-02-16 08:55:21,USR122,risk_analysis,A,2.67,True,4,False,False,PLG - 
 RUN219,2026-02-16 10:39:36,USR129,data_hygiene,B,4.39,True,5,False,False,Outbound - Enterprise,Negotiation,186916,Onboarding & Adoption,7.6,v2.0
 RUN220,2026-02-16 16:28:57,USR121,risk_analysis,A,3.14,True,3,False,False,Event - Summit,Technical Validation,103363,Deal Execution,20.8,v2.0
 PLYD5F8D9,2026-02-14 19:33:30,web_playground,lead_summary,A,1.58,True,0,False,False,Playground,SQL,0,Pipeline Generation,4.7,v2.0
+PLY8AEA72,2026-02-15 14:02:05,web_playground,lead_summary,A,1.68,True,0,False,False,Playground,SQL,0,Pipeline Generation,5.0,v2.0
