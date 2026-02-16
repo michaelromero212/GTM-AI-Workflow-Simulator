@@ -4,6 +4,45 @@
 
 GTM teams lose pipeline velocity to manual research, inconsistent deal inspection, and reactive post-sales workflows. This simulator demonstrates how AI agents can be deployed with governance, QA'd before rollout, measured against revenue KPIs, and iterated on using real field feedback — end-to-end, from intake to production.
 
+---
+
+## 📸 Screenshots
+
+### Performance Overview
+Real-time KPIs, A/B test summaries, time savings by task, and adoption trends.
+
+![Overview — KPIs & A/B Summary](docs/images/overview_top.png)
+![Overview — Tables & Charts](docs/images/overview_bottom.png)
+
+### KPI Dashboard
+Task accuracy, satisfaction, error rate, and interactive Chart.js visualizations comparing Agent A vs B.
+
+![Dashboard — KPIs & Funnel](docs/images/dashboard_top.png)
+![Dashboard — A/B Comparison & Task Type Charts](docs/images/dashboard_charts.png)
+![Dashboard — Detailed Breakdown](docs/images/dashboard_bottom.png)
+
+### Workflow Builder
+Manual vs AI-assisted GTM workflows side-by-side with estimated time savings.
+
+![Workflow Builder — Manual Process](docs/images/workflow_builder.png)
+![Workflow Builder — AI-Assisted](docs/images/workflow_builder_ai.png)
+
+### Agent Lab
+Interactive sandbox for testing AI agents with live LLM responses. Submit real prompts, get structured analysis.
+
+![Agent Lab](docs/images/agent_lab.png)
+
+### Governance & Audit Log
+Full audit trail with governance metrics, compliance tracking, and detailed event logging.
+
+![Audit Log — Metrics & Trail](docs/images/audit_log.png)
+
+### Operational Diagnostics
+Built-in SQL explorer with preset diagnostic queries and a full data catalog.
+
+![Operational Diagnostics](docs/images/diagnostics.png)
+
+---
 
 ## 📈 Revenue Impact (Simulated Environment)
 
@@ -37,58 +76,6 @@ GTM teams lose pipeline velocity to manual research, inconsistent deal inspectio
 - **Operational Diagnostics** — In-depth auditing and bottleneck analysis
 - **A/B Testing** — Data-driven rollout decisions with statistical analysis
 - **Enablement** — Rollout playbooks, training assets, and business reviews
-
-## 🏗️ Project Structure
-
-```
-GTM-AI-Workflow-Simulator/
-├── README.md                          # This file
-├── requirements.txt                   # Python dependencies
-├── .gitignore                         # Git exclusions
-├── .env.example                       # Environment variable template
-│
-├── docs/                              # Business documentation
-│   ├── business_intent.md            # Agent definition & governance
-│   ├── kpis.md                       # KPI definitions
-│   ├── rollout_plan.md               # Deployment strategy
-│   └── enablement.md                 # User guidance
-│
-├── agent/                             # AI Agent implementation
-│   ├── agent.py                      # Core agent logic
-│   └── prompts.py                    # Prompt templates
-│
-├── qa/                                # Quality assurance
-│   ├── test_cases.json               # Structured test cases
-│   └── run_qa.py                     # QA test runner
-│
-├── data/                              # Data storage
-│   ├── sample_agent_runs.csv         # Sample agent interaction data
-│   └── uploaded_inputs/              # User-uploaded files
-│
-├── analytics/                         # Data analytics
-│   ├── load_data.py                  # Data ingestion (DuckDB)
-│   └── queries.sql                   # SQL queries for KPIs
-│
-├── dashboards/                        # Visualization
-│   └── kpi_dashboard.ipynb           # Jupyter dashboard
-│
-├── experiments/                       # A/B testing
-│   └── ab_test.md                    # Experiment documentation
-│
-├── reviews/                           # Business reviews
-│   └── weekly_business_review.md     # Review template
-│
-└── webapp/                            # Web application
-    ├── app.py                        # FastAPI application
-    ├── templates/                    # Jinja2 templates
-    │   ├── layout.html              # Shared layout with sidebar
-    │   ├── index.html               # Overview page
-    │   ├── dashboard.html           # KPI dashboard
-    │   ├── upload.html              # Test agent page
-    │   └── explorer.html            # Operational Diagnostics
-    └── static/
-        └── styles.css               # Premium CSS design system
-```
 
 ## 🚀 Quick Start
 
@@ -128,42 +115,6 @@ HF_TOKEN=your_token uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
 Open your browser to: **http://localhost:8000**
-
-## 📸 Screenshots
-
-### Performance Overview
-The landing page shows real-time KPIs, A/B test summaries, lead source performance, and recent activity — all with interactive Chart.js visualizations.
-
-![Overview — KPIs & A/B Summary](docs/images/overview_top.png)
-![Overview — Tables & Charts](docs/images/overview_bottom.png)
-
-### KPI Dashboard
-Comprehensive metrics including task accuracy, satisfaction ratings, resolution time, and error rate. Interactive charts compare Agent A vs Agent B performance, break down results by task type, and plot daily trends.
-
-![Dashboard — KPIs & Funnel](docs/images/dashboard_top.png)
-![Dashboard — A/B Comparison & Task Type Charts](docs/images/dashboard_charts.png)
-![Dashboard — Detailed Breakdown](docs/images/dashboard_bottom.png)
-
-### Workflow Builder
-Design and compare manual vs AI-assisted GTM workflows. Visualizes step-by-step processes with estimated time savings when AI agents are introduced.
-
-![Workflow Builder — Manual Process](docs/images/workflow_builder.png)
-![Workflow Builder — AI-Assisted](docs/images/workflow_builder_ai.png)
-
-### Governance & Audit Log
-Full audit trail of every agent run with governance metrics, compliance tracking, and detailed event logging.
-
-![Audit Log — Metrics & Trail](docs/images/audit_log.png)
-
-### Agent Lab
-Interactive sandbox for testing AI agents against different GTM task types (lead summaries, deal risk, follow-ups). Submit real prompts and evaluate LLM-generated outputs with feedback controls.
-
-![Agent Lab](docs/images/agent_lab.png)
-
-### Operational Diagnostics
-Audit the `agent_runs` data directly with a built-in SQL explorer. Includes preset diagnostic queries (Executive Summary, Failure Audit, etc.) and a full data catalog reference.
-
-![Operational Diagnostics](docs/images/diagnostics.png)
 
 ## 🎯 Role Alignment: GTM Systems & AI Engineer
 
@@ -227,6 +178,58 @@ ORDER BY accuracy DESC
 | LLM | Hugging Face Inference API |
 | Styling | Custom CSS (Databricks-inspired) |
 | Data Format | CSV with live appends |
+
+## 🏗️ Project Structure
+
+```
+GTM-AI-Workflow-Simulator/
+├── README.md                          # This file
+├── requirements.txt                   # Python dependencies
+├── .gitignore                         # Git exclusions
+├── .env.example                       # Environment variable template
+│
+├── docs/                              # Business documentation
+│   ├── business_intent.md            # Agent definition & governance
+│   ├── kpis.md                       # KPI definitions
+│   ├── rollout_plan.md               # Deployment strategy
+│   └── enablement.md                 # User guidance
+│
+├── agent/                             # AI Agent implementation
+│   ├── agent.py                      # Core agent logic
+│   └── prompts.py                    # Prompt templates
+│
+├── qa/                                # Quality assurance
+│   ├── test_cases.json               # Structured test cases
+│   └── run_qa.py                     # QA test runner
+│
+├── data/                              # Data storage
+│   ├── sample_agent_runs.csv         # Sample agent interaction data
+│   └── uploaded_inputs/              # User-uploaded files
+│
+├── analytics/                         # Data analytics
+│   ├── load_data.py                  # Data ingestion (DuckDB)
+│   └── queries.sql                   # SQL queries for KPIs
+│
+├── dashboards/                        # Visualization
+│   └── kpi_dashboard.ipynb           # Jupyter dashboard
+│
+├── experiments/                       # A/B testing
+│   └── ab_test.md                    # Experiment documentation
+│
+├── reviews/                           # Business reviews
+│   └── weekly_business_review.md     # Review template
+│
+└── webapp/                            # Web application
+    ├── app.py                        # FastAPI application
+    ├── templates/                    # Jinja2 templates
+    │   ├── layout.html              # Shared layout with sidebar
+    │   ├── index.html               # Overview page
+    │   ├── dashboard.html           # KPI dashboard
+    │   ├── upload.html              # Test agent page
+    │   └── explorer.html            # Operational Diagnostics
+    └── static/
+        └── styles.css               # Premium CSS design system
+```
 
 ## 🛡️ Governance & Compliance by Design
 
